@@ -25,6 +25,7 @@ import './styles/refresh.css';
 import './styles/ispana.css';
 import './styles/ispana-motion.css';
 import './styles/ispana-art.css';
+import './styles/ispana-blocks.css';
 import { App } from './App.tsx';
 import { site } from './config/site.ts';
 import { getContent } from './lib/api.ts';

@@ -2,45 +2,81 @@ import { useRef, type CSSProperties } from 'react';
 import { site } from '../../config/site.ts';
 import { useInView } from '../../hooks/useInView.ts';
 import { useFlipTour } from '../../hooks/useFlipTour.ts';
-import { spotlight } from '../../hooks/useTilt.ts';
+import { spotlight, useTilt } from '../../hooks/useTilt.ts';
 import { Drawing, type DrawingId } from '../art/Drawings.tsx';
 import { FlipCard } from '../ui/FlipCard.tsx';
 import { CountUp } from '../ui/Motion.tsx';
 
-/** Three fanned photo cards; each turns over to a fact with a drawing. */
-function Fan() {
+/**
+ * A quiet 2×2 grid of squares: three photos that turn over to a fact with a drawing, and a
+ * rating tile. The grid leans a little towards the pointer and a soft light follows it;
+ * the other squares fade back while one is under the pointer.
+ */
+function Tiles() {
   const cards = site.practitioner.cards;
+  const { rating } = site.location;
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, '-20% 0px');
   const { isFlipped, set } = useFlipTour(cards.length, inView);
+  const tilt = useTilt(4);
 
   return (
-    <div ref={ref} className="isp-fan">
-      {cards.map((card, i) => (
-        <FlipCard
-          key={card.src}
-          className="isp-fan__card"
-          style={{ '--i': i } as CSSProperties}
-          label={card.title}
-          flipped={isFlipped(i)}
-          onFlip={(v) => set(i, v)}
-          front={
-            <>
-              <img src={card.src} alt={card.alt} loading="lazy" decoding="async" style={{ objectPosition: card.focus ?? '50% 50%' }} />
-              <span className="isp-fan__label">{card.title}</span>
-            </>
-          }
-          back={
-            <div className="isp-fan__back">
-              <Drawing id={card.drawing as DrawingId} active={isFlipped(i)} />
-              <strong>{card.title}</strong>
-              <p>{card.text}</p>
-            </div>
-          }
-        />
-      ))}
-      <p className="isp-fan__hint" aria-hidden="true">
-        Наведите или нажмите на карточку
+    <div className="isp-tiles-wrap">
+      <div
+        ref={ref}
+        className="isp-tiles"
+        onPointerMove={(e) => {
+          tilt.onPointerMove(e);
+          spotlight(e);
+        }}
+        onPointerLeave={tilt.onPointerLeave}
+      >
+        {cards.map((card, i) => (
+          <FlipCard
+            key={card.src}
+            className="isp-tile"
+            style={{ '--i': i } as CSSProperties}
+            label={card.title}
+            flipped={isFlipped(i)}
+            onFlip={(v) => set(i, v)}
+            front={
+              <>
+                <img src={card.src} alt={card.alt} loading="lazy" decoding="async" style={{ objectPosition: card.focus ?? '50% 50%' }} />
+                <span className="isp-tile__label">
+                  <small>{String(i + 1).padStart(2, '0')}</small>
+                  {card.title}
+                </span>
+              </>
+            }
+            back={
+              <div className="isp-tile__back">
+                <Drawing id={card.drawing as DrawingId} active={isFlipped(i)} />
+                <strong>{card.title}</strong>
+                <p>{card.text}</p>
+              </div>
+            }
+          />
+        ))}
+        <a className="isp-tile isp-tile--score" href="#testimonials" style={{ '--i': 3 } as CSSProperties}>
+          <span className="isp-tile__score">
+            <CountUp value={rating.value} ms={1200} />
+          </span>
+          <span className="isp-tile__stars" aria-hidden="true">
+            {[0, 1, 2, 3, 4].map((s) => (
+              <i key={s} style={{ '--s': s } as CSSProperties}>
+                ★
+              </i>
+            ))}
+          </span>
+          <span className="isp-tile__caption">
+            {rating.votes} на Яндекс Картах
+            <b aria-hidden="true">→</b>
+          </span>
+        </a>
+        <span className="isp-tiles__light" aria-hidden="true" />
+      </div>
+      <p className="isp-tiles__hint" aria-hidden="true">
+        Наведите или нажмите на фото — оно перевернётся
       </p>
     </div>
   );
@@ -52,7 +88,7 @@ export function About() {
     <section id="about" className="section isp-about" aria-labelledby="about-title">
       <div className="wrap isp-about__grid">
         <div className="isp-about__media isp-reveal">
-          <Fan />
+          <Tiles />
         </div>
 
         <div className="isp-about__content">

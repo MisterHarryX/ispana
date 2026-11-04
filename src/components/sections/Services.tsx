@@ -7,6 +7,9 @@ import { BookingLink } from '../ui/BookingLink.tsx';
 import { SectionHeading } from '../ui/SectionHeading.tsx';
 import { SERVICES_FILTER_EVENT } from './Topics.tsx';
 
+/** Rows shown before «Показать все». */
+const PREVIEW = 8;
+
 /** Lower-case, ё→е, so «ресницы» finds «Реснички» and «еж» finds «ёж». */
 const fold = (text: string) => text.toLowerCase().replace(/ё/g, 'е');
 
@@ -66,6 +69,8 @@ export function Services() {
   const uid = useId();
   const [query, setQuery] = useState('');
   const [format, setFormat] = useState<string | null>(null);
+  const [openId, setOpenId] = useState<string | null>(null);
+  const [showAll, setShowAll] = useState(false);
   const deferred = useDeferredValue(query);
   useEffect(() => {
     const onFilter = (event: Event) => {
@@ -94,6 +99,10 @@ export function Services() {
   const filterKey = `${format ?? 'all'}|${words.join(' ')}`;
   // Rows animate in on every filter change, but not on first load: there the scroll reveal leads.
   const touched = filterKey !== 'all|' || query !== '' || format !== null;
+  // The full price list is long: show the first rows until the visitor asks for all (filters and search always show everything).
+  const limited = !showAll && !query && !format;
+  const visible = limited ? shown.slice(0, PREVIEW) : shown;
+  const hidden = shown.length - visible.length;
 
   return (
     <section id="services" className="section services" aria-labelledby="services-title">
@@ -139,41 +148,74 @@ export function Services() {
           </p>
         </div>
 
-        <ul className="services__list" key={filterKey} data-filtered={touched || undefined}>
-          {shown.map((service, i) => (
-            <li
-              key={service.id}
-              className={`service${service.badge ? ' service--featured' : ''}`}
-              style={{ '--n': Math.min(i, 8) } as CSSProperties}
-              onPointerMove={spotlight}
-            >
-              <div className="service__about">
-                <h3 id={`service-${service.id}`} className="service__title">
-                  {highlight(service.title, words)}
-                </h3>
-                {service.badge && <p className="service__badge">{service.badge}</p>}
-                <p className="service__summary">{highlight(service.summary, words)}</p>
-              </div>
-              <dl className="service__meta">
-                <div>
-                  <dt>Длительность</dt>
-                  <dd>{service.duration}</dd>
+        <ul className="isp-prices" key={filterKey} data-filtered={touched || undefined}>
+          {visible.map((service, i) => {
+            const isOpen = openId === service.id;
+            return (
+              <li
+                key={service.id}
+                className="isp-price"
+                data-open={isOpen || undefined}
+                data-featured={service.badge ? true : undefined}
+                style={{ '--n': Math.min(i, 10) } as CSSProperties}
+                onPointerMove={spotlight}
+              >
+                <button
+                  type="button"
+                  className="isp-price__row"
+                  aria-expanded={isOpen}
+                  aria-controls={`${uid}-p-${service.id}`}
+                  onClick={() => setOpenId(isOpen ? null : service.id)}
+                >
+                  <span className="isp-price__name">
+                    <span id={`service-${service.id}`} className="isp-price__title">
+                      {highlight(service.title, words)}
+                    </span>
+                    <span className="isp-price__meta">
+                      {service.format} · {service.duration}
+                      {service.badge && <em> · {service.badge}</em>}
+                    </span>
+                  </span>
+                  <span className="isp-price__cost">
+                    <span className="visually-hidden">Стоимость: </span>
+                    {formatPrice(service.price)}
+                  </span>
+                  <span className="isp-price__chev" aria-hidden="true" />
+                </button>
+                <div id={`${uid}-p-${service.id}`} className="isp-price__panel" role="region" aria-labelledby={`service-${service.id}`} inert={!isOpen}>
+                  <div>
+                    <p>{highlight(service.summary, words)}</p>
+                    <BookingLink serviceId={service.id} className="btn--compact" ariaLabel={`Записаться: ${service.title}`}>
+                      Записаться
+                    </BookingLink>
+                  </div>
                 </div>
-                <div>
-                  <dt>Направление</dt>
-                  <dd>{service.format}</dd>
-                </div>
-              </dl>
-              <p className="service__price">
-                <span className="visually-hidden">Стоимость: </span>
-                {formatPrice(service.price)}
-              </p>
-              <BookingLink serviceId={service.id} variant={service.badge ? 'primary' : 'secondary'} ariaLabel={`Записаться: ${service.title}`}>
-                Записаться
-              </BookingLink>
-            </li>
-          ))}
+              </li>
+            );
+          })}
         </ul>
+
+        {hidden > 0 && (
+          <div className="isp-prices__more">
+            <button type="button" className="btn btn--secondary" onClick={() => setShowAll(true)}>
+              Показать все услуги <small>+{hidden}</small>
+            </button>
+          </div>
+        )}
+        {showAll && !query && !format && shown.length > PREVIEW && (
+          <div className="isp-prices__more">
+            <button
+              type="button"
+              className="text-button"
+              onClick={() => {
+                setShowAll(false);
+                document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              Свернуть список ↑
+            </button>
+          </div>
+        )}
 
         {shown.length === 0 && (
           <div className="price-finder__empty">
