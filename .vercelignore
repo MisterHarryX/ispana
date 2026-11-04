@@ -1,0 +1,10 @@
+.env*
+!.env.example
+.data
+node_modules
+dist
+artifacts
+.vercel-admin.local
+.vercel
+regru
+deploy

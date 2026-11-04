@@ -1,0 +1,135 @@
+/* ISPANA — details of the drawings: tinted shapes and highlight dots. Loaded last. */
+
+.isp-art .fill {
+  fill: color-mix(in oklab, var(--c-gold) 14%, transparent);
+  opacity: 0;
+}
+
+.isp-art[data-draw] .fill {
+  animation: isp-appear 800ms ease 500ms both;
+}
+
+.isp-art .dot--light {
+  fill: #fff;
+}
+
+.isp-art[data-draw] .dot {
+  animation-delay: calc(var(--k, 0) * 80ms + 900ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .isp-art .fill {
+    opacity: 1;
+    animation: none !important;
+  }
+}
+
+/* The showcase card sits bottom-left, so the drawing keeps to the right. */
+@media (min-width: 1200px) {
+  .isp-show__art {
+    width: 60%;
+    margin: -10% 0 0 34%;
+  }
+
+  .isp-show__halo {
+    left: 34%;
+    width: 56%;
+  }
+}
+
+/* Small laptops and tablets in landscape: tabs as a strip, panel full width, card under the drawing. */
+@media (min-width: 1000px) and (max-width: 1199px) {
+  .isp-show {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .isp-show__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .isp-show__tab {
+    grid-template-columns: auto;
+    padding: 0.65rem 1.1rem;
+    border: 1px solid var(--c-line);
+  }
+
+  .isp-show__tab[aria-selected='true'] {
+    padding-left: 1.1rem;
+  }
+
+  .isp-show__num,
+  .isp-show__from {
+    display: none;
+  }
+
+  .isp-show__name {
+    font-size: 1.15rem;
+    white-space: nowrap;
+  }
+
+  .isp-show__bar {
+    left: 1.1rem;
+    right: 1.1rem;
+    bottom: 0.3rem;
+  }
+
+  .isp-show__panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .isp-show__media {
+    height: clamp(360px, 52vh, 480px);
+  }
+
+  .isp-show__card {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    width: auto;
+    margin: 0;
+  }
+}
+
+/* Tablets in portrait: card overlaps the bottom of the drawing a little, centred. */
+@media (min-width: 641px) and (max-width: 999px) {
+  .isp-show__card {
+    max-width: 34rem;
+    margin: -5rem auto 0;
+  }
+
+  .isp-show__media {
+    aspect-ratio: 16 / 11;
+  }
+
+  .isp-show__art {
+    width: 58%;
+  }
+}
+
+/* ---------- Tablets ---------- */
+
+@media (min-width: 641px) and (max-width: 1099px) {
+  .isp-team__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 641px) and (max-width: 899px) {
+  .isp-folio__main {
+    aspect-ratio: 4 / 3.1;
+  }
+
+  .isp-folio__grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .isp-fan {
+    max-width: 30rem;
+  }
+}

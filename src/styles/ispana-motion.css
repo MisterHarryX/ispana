@@ -1,0 +1,1014 @@
+/*
+ * ISPANA — flip cards, line drawings, hero petals, cursor light and sparkle bursts.
+ * Loaded after ispana.css.
+ */
+
+/* ---------- Drawings ---------- */
+
+.isp-art {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  color: var(--c-gold);
+}
+
+.isp-art .blob {
+  fill: var(--c-blush);
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.isp-art .d {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.isp-art .dot {
+  fill: currentColor;
+  opacity: 0;
+}
+
+.isp-art .spark {
+  fill: var(--c-champagne);
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.isp-art .sign {
+  font-family: var(--font-logo);
+  font-size: 11px;
+  letter-spacing: 3px;
+  fill: currentColor;
+  opacity: 0;
+}
+
+.isp-art[data-draw] .blob {
+  animation: isp-blob 900ms var(--ease-out) both;
+}
+
+.isp-art[data-draw] .d {
+  animation: isp-draw 1100ms var(--ease-out) both;
+  animation-delay: calc(var(--k, 0) * 150ms + 150ms);
+}
+
+.isp-art[data-draw] .dot,
+.isp-art[data-draw] .sign {
+  animation: isp-appear 500ms ease 900ms both;
+}
+
+.isp-art[data-draw] .spark {
+  animation: isp-twinkle 2.8s ease-in-out infinite;
+  animation-delay: calc(var(--k, 0) * 0.25s + 1s);
+}
+
+.isp-art[data-draw] .steam {
+  animation: isp-steam 2.6s ease-in-out 1.6s infinite;
+}
+
+@keyframes isp-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes isp-blob {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes isp-appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes isp-steam {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-4px);
+    opacity: 0.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .isp-art .d {
+    stroke-dashoffset: 0;
+    animation: none !important;
+  }
+
+  .isp-art .blob,
+  .isp-art .dot,
+  .isp-art .sign,
+  .isp-art .spark {
+    opacity: 1;
+    animation: none !important;
+  }
+}
+
+/* ---------- Flip cards ---------- */
+
+.flip {
+  position: relative;
+  perspective: 1400px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.flip__inner {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  transform-style: preserve-3d;
+  transition: transform 850ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.flip[data-flipped] .flip__inner {
+  transform: rotateY(180deg);
+}
+
+.flip__face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flip__back {
+  transform: rotateY(180deg);
+}
+
+.flip__turn {
+  position: absolute;
+  z-index: 5;
+  top: 0.7rem;
+  right: 0.7rem;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / 0.55);
+  border-radius: 50%;
+  color: #fff;
+  background: rgb(30 14 18 / 0.35);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition:
+    transform 500ms var(--ease-out),
+    background-color var(--dur-ui) ease;
+}
+
+.flip[data-flipped] .flip__turn {
+  transform: rotate(180deg);
+  color: var(--c-gold);
+  border-color: var(--c-line-strong);
+  background: var(--c-cream);
+}
+
+.flip__turn svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip__inner {
+    transition-duration: 1ms;
+  }
+}
+
+/* The common back face: a drawing, a title and a few words. */
+.isp-fan__back,
+.isp-room__back {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 100%;
+  padding: 2.2rem 1.4rem 1.4rem;
+  border: 1px solid var(--c-line);
+  border-radius: inherit;
+  text-align: center;
+  background:
+    radial-gradient(120% 80% at 50% 0%, color-mix(in oklab, var(--c-rose) 35%, transparent), transparent 70%),
+    #3a2228;
+}
+
+html:not([data-theme='dark']) .isp-fan__back,
+html:not([data-theme='dark']) .isp-room__back {
+  background:
+    radial-gradient(120% 80% at 50% 0%, color-mix(in oklab, var(--c-rose) 40%, transparent), transparent 70%),
+    #fff9f7;
+}
+
+.isp-fan__back .isp-art,
+.isp-room__back .isp-art {
+  width: 82%;
+  max-width: 12rem;
+}
+
+.isp-fan__back strong,
+.isp-room__back strong {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--c-ivory);
+}
+
+.isp-fan__back p,
+.isp-room__back p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--c-text-muted);
+}
+
+/* ---------- About: fan of flip cards ---------- */
+
+.isp-fan {
+  position: relative;
+  max-width: 30rem;
+  aspect-ratio: 1 / 1.04;
+  margin-inline: auto;
+}
+
+.isp-fan__card {
+  position: absolute;
+  top: 6%;
+  width: 58%;
+  aspect-ratio: 3 / 4.1;
+  border-radius: 999px 999px 26px 26px;
+  transition:
+    transform 700ms var(--ease-out),
+    z-index 0s 200ms;
+}
+
+.isp-fan__card:nth-child(1) {
+  left: 0;
+  z-index: 1;
+  transform: rotate(-9deg) translateY(6%);
+}
+
+.isp-fan__card:nth-child(2) {
+  left: 21%;
+  z-index: 2;
+  transform: translateY(-4%);
+}
+
+.isp-fan__card:nth-child(3) {
+  right: 0;
+  z-index: 1;
+  transform: rotate(9deg) translateY(6%);
+}
+
+.isp-fan__card[data-flipped] {
+  z-index: 3;
+  transition:
+    transform 700ms var(--ease-out),
+    z-index 0s;
+}
+
+.isp-fan__card[data-flipped]:nth-child(1),
+.isp-fan__card[data-flipped]:nth-child(3) {
+  transform: rotate(0deg) translateY(-2%) scale(1.04);
+}
+
+.isp-fan__card[data-flipped]:nth-child(2) {
+  transform: translateY(-8%) scale(1.04);
+}
+
+.isp-fan__card .flip__face {
+  outline: 1px solid var(--c-line);
+  outline-offset: -1px;
+  box-shadow: var(--shadow-photo);
+}
+
+.isp-fan__card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.isp-fan__label {
+  position: absolute;
+  left: 50%;
+  bottom: 0.9rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  translate: -50% 0;
+  white-space: nowrap;
+  font-family: var(--font-logo);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgb(30 14 18 / 0.45);
+  backdrop-filter: blur(8px);
+}
+
+.isp-fan__hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.6rem;
+  margin: 0;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--c-text-soft);
+}
+
+/* ---------- Rooms: arched flip cards ---------- */
+
+.isp-rooms__head {
+  margin-bottom: 1.6rem;
+  text-align: center;
+}
+
+.isp-rooms__title {
+  margin-bottom: 0;
+}
+
+.isp-rooms__head p {
+  margin: 0.4rem 0 0;
+  color: var(--c-text-muted);
+}
+
+.isp-rooms__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (max-width: 900px) {
+  .isp-rooms__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+}
+
+.flip.isp-room {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4.3;
+  border-radius: 999px 999px 26px 26px;
+  background: none;
+  box-shadow: none;
+  transition: transform 500ms var(--ease-out);
+}
+
+.isp-room .flip__front {
+  box-shadow: var(--shadow-card);
+}
+
+.isp-room .flip__front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .flip.isp-room:hover {
+    transform: translateY(-6px);
+  }
+}
+
+.isp-room .isp-room__label {
+  opacity: 1;
+  transform: none;
+  font-size: 1.05rem;
+}
+
+.isp-room__back ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.3rem;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.isp-room__back li {
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  color: var(--c-gold);
+  background: var(--c-blush);
+}
+
+@media (max-width: 640px) {
+  .isp-room__back,
+  .isp-fan__back {
+    gap: 0.35rem;
+    padding: 1.8rem 0.8rem 1rem;
+  }
+
+  .isp-room__back strong,
+  .isp-fan__back strong {
+    font-size: 1.1rem;
+  }
+
+  .isp-room__back p,
+  .isp-fan__back p {
+    font-size: 0.76rem;
+  }
+
+  .isp-room .isp-room__label {
+    left: 0.6rem;
+    right: 0.6rem;
+    bottom: 0.6rem;
+    padding: 0.5rem 0.7rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* ---------- Team: flip cards ---------- */
+
+.isp-team__hint {
+  margin: 0.6rem 0 0;
+  font-size: 0.85rem;
+  color: var(--c-text-soft);
+}
+
+.isp-team__grid > li {
+  min-width: 0;
+}
+
+.flip.isp-master {
+  aspect-ratio: 4 / 6.1;
+  padding: 0;
+  border: 0;
+  border-radius: 24px;
+  background: none;
+  box-shadow: none;
+  transition: transform 500ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .flip.isp-master:hover {
+    transform: translateY(-6px);
+    box-shadow: none;
+  }
+}
+
+.isp-master .flip__face {
+  border: 1px solid var(--c-line);
+  background: var(--c-card);
+}
+
+html:not([data-theme='dark']) .isp-master .flip__face {
+  background: #fffaf8;
+}
+
+.isp-master .flip__front {
+  display: flex;
+  flex-direction: column;
+  padding: 0.9rem 0.9rem 1.1rem;
+}
+
+.isp-master .isp-master__portrait {
+  display: block;
+  flex: 1;
+  min-height: 0;
+  aspect-ratio: auto;
+  cursor: inherit;
+}
+
+.isp-master .isp-master__portrait .isp-master__avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  font-size: 4rem;
+}
+
+.isp-master .isp-master__name {
+  margin-top: 0.9rem;
+}
+
+.isp-master__back {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 100%;
+  padding: 1.4rem 1.1rem;
+  text-align: center;
+  background: radial-gradient(120% 70% at 50% 0%, color-mix(in oklab, var(--c-rose) 32%, transparent), transparent 70%);
+}
+
+.isp-master__mini {
+  width: 76px;
+  height: 76px;
+  border: 3px solid var(--c-blush);
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 20%;
+}
+
+.isp-master__back strong {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+.isp-master__back .isp-master__services {
+  justify-content: center;
+  margin: 0.3rem 0 0.6rem;
+}
+
+@media (max-width: 640px) {
+  .flip.isp-master {
+    aspect-ratio: 4 / 6.6;
+    border-radius: 20px;
+  }
+
+  .isp-master .flip__front {
+    padding: 0.6rem 0.6rem 0.8rem;
+  }
+
+  .isp-master__back {
+    gap: 0.35rem;
+    padding: 1rem 0.6rem;
+  }
+
+  .isp-master__mini {
+    width: 54px;
+    height: 54px;
+  }
+
+  .isp-master__back strong {
+    font-size: 1.2rem;
+  }
+
+  .isp-master__back .btn {
+    min-height: 36px;
+    padding: 0 0.8rem;
+    font-size: 0.78rem;
+  }
+}
+
+/* ---------- Directions: illustration panel ---------- */
+
+.isp-show__media--art {
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--c-line);
+  background:
+    radial-gradient(70% 60% at 50% 40%, color-mix(in oklab, var(--c-rose) 45%, transparent), transparent 70%),
+    linear-gradient(180deg, #3d252b, #2f1c21);
+}
+
+html:not([data-theme='dark']) .isp-show__media--art {
+  background:
+    radial-gradient(70% 60% at 50% 40%, color-mix(in oklab, var(--c-rose) 55%, transparent), transparent 70%),
+    linear-gradient(180deg, #fffaf8, #f6e2dd);
+}
+
+.isp-show__media--art::after {
+  display: none;
+}
+
+.isp-show__art {
+  width: min(78%, 30rem);
+  margin-top: -14%;
+}
+
+.isp-show__art .d {
+  stroke-width: 1.6;
+}
+
+.isp-show__halo {
+  position: absolute;
+  top: 10%;
+  width: 62%;
+  aspect-ratio: 1;
+  border: 1px dashed var(--c-line-strong);
+  border-radius: 50%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .isp-show__halo {
+    animation: isp-rotate 40s linear infinite;
+  }
+}
+
+@keyframes isp-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.isp-show__media--art .isp-show__index {
+  color: var(--c-gold);
+}
+
+@media (min-width: 1000px) {
+  .isp-show__art {
+    margin: -20% 0 0 20%;
+  }
+
+  .isp-show__halo {
+    left: 26%;
+  }
+}
+
+/* ---------- Visit: big drawn steps ---------- */
+
+.isp-step__dot {
+  width: 7.5rem;
+  height: 7.5rem;
+  background: var(--c-card);
+}
+
+html:not([data-theme='dark']) .isp-step__dot {
+  background: #fffaf8;
+}
+
+.isp-step__dot svg.isp-step__art {
+  width: 88%;
+  height: auto;
+  fill: initial;
+  stroke: none;
+}
+
+.isp-step__art .d {
+  stroke-width: 2.6;
+}
+
+.isp-step__dot b {
+  top: 2px;
+  right: 2px;
+  width: 26px;
+  height: 26px;
+  font-size: 0.8rem;
+}
+
+.isp-step {
+  grid-template-columns: 7.5rem 1fr;
+}
+
+.isp-process__line {
+  top: 3.75rem;
+  left: 3.75rem;
+}
+
+@media (min-width: 800px) {
+  .isp-step {
+    grid-template-columns: 1fr;
+  }
+
+  .isp-process__line {
+    top: 3.75rem;
+    left: 12.5%;
+  }
+}
+
+@media (max-width: 799px) {
+  .isp-step__dot {
+    width: 5.5rem;
+    height: 5.5rem;
+  }
+
+  .isp-step {
+    grid-template-columns: 5.5rem 1fr;
+    align-items: center;
+  }
+
+  .isp-process__line {
+    top: 2.75rem;
+    bottom: 2.75rem;
+    left: 2.75rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .isp-step:hover .isp-step__dot {
+    transform: scale(1.08) rotate(-3deg);
+  }
+}
+
+/* ---------- FAQ and map drawings ---------- */
+
+.isp-ask__art {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 8rem;
+  border-radius: 999px 999px 16px 16px;
+  background: var(--c-blush);
+}
+
+.isp-ask__art .isp-art {
+  width: 92%;
+}
+
+.isp-location-art {
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  border: 1px solid var(--c-line);
+  border-radius: 999px 999px 24px 24px;
+  background: var(--c-card);
+  box-shadow: var(--shadow-card);
+}
+
+/* ---------- Hero petals ---------- */
+
+.isp-petals {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.isp-petals i {
+  position: absolute;
+  bottom: -30px;
+  left: calc(var(--p) * 9.7% + 2%);
+  width: calc(8px + (var(--p) - 5) * (var(--p) - 5) * 0.4px);
+  aspect-ratio: 0.72;
+  border-radius: 80% 0 80% 0;
+  background: linear-gradient(135deg, var(--c-rose), color-mix(in oklab, var(--c-rose), #fff 40%));
+  opacity: 0.55;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .isp-petals i {
+    animation: isp-petal calc(13s + var(--p) * 1.4s) linear infinite;
+    animation-delay: calc(var(--p) * -2.3s);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .isp-petals {
+    display: none;
+  }
+}
+
+@keyframes isp-petal {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(40px, -50vh) rotate(200deg);
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-20px, -105vh) rotate(380deg);
+    opacity: 0;
+  }
+}
+
+/* ---------- Cursor light and sparkle bursts ---------- */
+
+.isp-cursor {
+  position: fixed;
+  z-index: 3;
+  left: 0;
+  top: 0;
+  width: 460px;
+  height: 460px;
+  margin: -230px 0 0 -230px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(240 160 170 / 0.38), transparent);
+  mix-blend-mode: soft-light;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 500ms ease;
+}
+
+.isp-cursor[data-on='true'] {
+  opacity: 1;
+}
+
+html[data-theme='dark'] .isp-cursor {
+  background: radial-gradient(closest-side, rgb(240 150 165 / 0.2), transparent);
+  mix-blend-mode: screen;
+}
+
+.isp-burst {
+  position: fixed;
+  z-index: 200;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  background: var(--c-gold-2);
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+  pointer-events: none;
+  animation: isp-burst 700ms var(--ease-out) forwards;
+}
+
+.isp-burst:nth-child(odd) {
+  background: var(--c-champagne);
+}
+
+@keyframes isp-burst {
+  from {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  to {
+    transform: translate(var(--bx), var(--by)) scale(0.2) rotate(var(--br));
+    opacity: 0;
+  }
+}
+
+/* Earlier room styles must not clip or tint the flip cards. */
+.flip.isp-room {
+  overflow: visible;
+  cursor: pointer;
+}
+
+.flip.isp-room img {
+  filter: none;
+  transform: none;
+}
+
+/* Bigger fan; the turn button shows on hover and focus (always on touch screens). */
+.isp-about__media {
+  width: min(100%, 34rem);
+}
+
+.isp-fan {
+  max-width: 34rem;
+}
+
+.isp-fan__card {
+  width: 60%;
+}
+
+.isp-fan__card:nth-child(2) {
+  left: 20%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .flip__turn {
+    opacity: 0;
+    transition:
+      opacity var(--dur-ui) ease,
+      transform 500ms var(--ease-out);
+  }
+
+  .flip:hover .flip__turn,
+  .flip__turn:focus-visible {
+    opacity: 1;
+  }
+}
+
+/* ---------- v5: softer flips, a calmer fan ---------- */
+
+.flip__inner {
+  transition: transform 1150ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* A slight lift while turning, so it reads as a card being picked up, not spun. */
+.flip {
+  transition: transform 700ms var(--ease-out);
+}
+
+.isp-fan {
+  aspect-ratio: 1 / 0.96;
+}
+
+.isp-fan__card {
+  top: 4%;
+  width: 50%;
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.isp-fan__card:nth-child(1) {
+  left: 0;
+  transform: rotate(-7deg) translate(-2%, 9%);
+}
+
+.isp-fan__card:nth-child(2) {
+  left: 25%;
+  transform: translateY(0);
+}
+
+.isp-fan__card:nth-child(3) {
+  left: auto;
+  right: 0;
+  transform: rotate(7deg) translate(2%, 9%);
+}
+
+.isp-fan__card[data-flipped]:nth-child(1) {
+  transform: rotate(-2deg) translate(-2%, 2%) scale(1.03);
+}
+
+.isp-fan__card[data-flipped]:nth-child(2) {
+  transform: translateY(-4%) scale(1.03);
+}
+
+.isp-fan__card[data-flipped]:nth-child(3) {
+  transform: rotate(2deg) translate(2%, 2%) scale(1.03);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .isp-fan__card:not([data-flipped]):hover:nth-child(1) {
+    transform: rotate(-8deg) translate(-4%, 7%);
+  }
+
+  .isp-fan__card:not([data-flipped]):hover:nth-child(3) {
+    transform: rotate(8deg) translate(4%, 7%);
+  }
+
+  .isp-fan__card:not([data-flipped]):hover:nth-child(2) {
+    transform: translateY(-2%);
+  }
+}
+
+/* Labels sit on the part of each card that stays visible. */
+.isp-fan__label {
+  bottom: 0.8rem;
+  max-width: calc(100% - 1.6rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.64rem;
+}
+
+.isp-fan__card:nth-child(1) .isp-fan__label {
+  left: 0.8rem;
+  translate: 0 0;
+}
+
+.isp-fan__card:nth-child(3) .isp-fan__label {
+  left: auto;
+  right: 0.8rem;
+  translate: 0 0;
+}
+
+.isp-fan__card:nth-child(2) .isp-fan__label {
+  bottom: 1rem;
+}
+
+.isp-fan__card:nth-child(1) .flip__turn,
+.isp-fan__card:nth-child(3) .flip__turn {
+  top: 22%;
+}
+
+.isp-fan__card:nth-child(1) .flip__turn {
+  left: 0.7rem;
+  right: auto;
+}
+
+.isp-fan__hint {
+  bottom: -1.4rem;
+}
+
+@media (max-width: 640px) {
+  .isp-fan__card {
+    width: 54%;
+  }
+
+  .isp-fan__card:nth-child(2) {
+    left: 23%;
+  }
+
+  .isp-fan__label {
+    font-size: 0.56rem;
+    padding: 0.3rem 0.6rem;
+  }
+}

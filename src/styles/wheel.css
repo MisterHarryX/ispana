@@ -1,0 +1,237 @@
+/* ---------- Card wheel (Gallery.tsx) ---------- */
+
+.wheel__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  flex: none;
+}
+
+.wheel__count {
+  min-width: 4.5rem;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  text-align: center;
+  color: var(--c-text-soft);
+}
+
+.wheel__count > span {
+  display: inline-block;
+  color: var(--c-gold);
+  animation: image-swap 320ms var(--ease-out);
+}
+
+.wheel__stage {
+  --cw: clamp(130px, 15vw, 205px);
+  position: relative;
+  height: calc(var(--cw) * 2.35);
+  margin-top: var(--space-2);
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.wheel__stage[data-dragging] {
+  cursor: grabbing;
+}
+
+.wheel__stage:focus-visible {
+  outline: 1px solid var(--c-line-strong);
+  outline-offset: 8px;
+}
+
+/* Candlelight pooled behind the centre card; it breathes like the hero flame. */
+.wheel__light {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: calc(var(--cw) * 3.4);
+  aspect-ratio: 1;
+  translate: -50% -18%;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgb(255 170 92 / 0.16), rgb(190 162 121 / 0.06) 50%, transparent);
+  opacity: 0.8;
+}
+
+/* The table edge the fan is held over. */
+.wheel__arc {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  bottom: 2%;
+  width: 92%;
+  height: 34%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.wheel__arc path {
+  fill: none;
+  stroke: var(--c-line);
+  stroke-width: 1;
+  stroke-dasharray: 0.004 0.008;
+  vector-effect: non-scaling-stroke;
+}
+
+.wheel__fan {
+  position: absolute;
+  left: 50%;
+  top: 6%;
+}
+
+/* Cards turn about a point below them, the way a fan of cards sits in a hand. */
+.wheel__card {
+  position: absolute;
+  left: calc(var(--cw) / -2);
+  top: 0;
+  width: var(--cw);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: inherit;
+  transform-origin: 50% 140%;
+  will-change: transform;
+}
+
+.wheel__card-inner {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 3px;
+  box-shadow: 0 24px 40px -20px #000, 0 0 0 1px rgb(255 255 255 / 0.04);
+  transition:
+    transform 300ms var(--ease-out),
+    box-shadow 400ms ease,
+    filter 400ms ease;
+  filter: brightness(0.62) saturate(0.5);
+}
+
+.wheel__card .card-img {
+  border-radius: 0;
+  pointer-events: none;
+}
+
+.wheel__card[data-center='true'] .wheel__card-inner {
+  filter: none;
+  box-shadow:
+    0 30px 50px -22px #000,
+    0 0 0 1px color-mix(in oklab, var(--c-gold) 50%, transparent),
+    0 0 60px -12px color-mix(in oklab, var(--c-gold) 45%, transparent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .wheel__stage:not([data-dragging]) .wheel__card:hover .wheel__card-inner {
+    transform: translateY(-10px);
+    filter: brightness(0.85) saturate(0.7);
+  }
+
+  .wheel__stage:not([data-dragging]) .wheel__card[data-center='true']:hover .wheel__card-inner {
+    filter: none;
+    cursor: zoom-in;
+  }
+}
+
+.wheel__card:active .wheel__card-inner {
+  transform: scale(0.97);
+}
+
+.wheel__sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 30%, rgb(255 244 222 / 0.32) 48%, rgb(255 244 222 / 0.08) 56%, transparent 70%);
+  translate: -110% 0;
+}
+
+.wheel__reading {
+  max-width: 34rem;
+  margin: var(--space-3) auto 0;
+  text-align: center;
+}
+
+.wheel__text {
+  min-height: 9.5rem;
+}
+
+.wheel__numeral {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-gold);
+}
+
+.wheel__title {
+  margin-top: 0.6rem;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 1.6rem + 1.4vw, 2.8rem);
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.wheel__meaning {
+  margin-top: 0.8rem;
+  color: var(--c-text-muted);
+}
+
+.wheel__hint {
+  margin-top: var(--space-3);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--c-text-soft);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .wheel__light {
+    animation: flame-flicker 4.6s linear infinite;
+  }
+
+  .wheel__card[data-center='true'] .wheel__sheen {
+    animation: wheel-glint 1100ms var(--ease-in-out) 180ms both;
+  }
+
+  /* The meaning comes into focus each time a new card reaches the centre. */
+  .wheel__text {
+    animation: image-swap 480ms var(--ease-out);
+  }
+
+  /* The table edge draws itself in as the section arrives. */
+  @supports (animation-timeline: view()) {
+    .wheel__arc path {
+      stroke-dasharray: 1;
+      animation: arc-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 20% cover 45%;
+    }
+  }
+}
+
+@keyframes wheel-glint {
+  from {
+    translate: -110% 0;
+  }
+  to {
+    translate: 110% 0;
+  }
+}
+
+@keyframes arc-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (max-width: 599px) {
+  .wheel__stage {
+    --cw: 118px;
+  }
+
+  .wheel__controls {
+    align-self: flex-start;
+  }
+}

@@ -1,0 +1,323 @@
+/* «Как нас найти»: info, the dark Yandex map with the studio card, a salon photo and the rating. */
+.location {
+  overflow: clip;
+}
+
+.location__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr);
+  grid-template-areas:
+    'info media'
+    'rating media';
+  gap: var(--space-4) clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.location__info { grid-area: info; }
+.location__media { grid-area: media; position: relative; }
+.rating { grid-area: rating; }
+
+.location__facts {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.location__facts > div {
+  display: grid;
+  grid-template-columns: 9.5rem 1fr;
+  gap: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--c-line-soft);
+}
+
+.location__facts dt {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--c-gold);
+  font-size: var(--fs-small);
+  letter-spacing: 0.04em;
+}
+
+.location__facts dd {
+  display: grid;
+  gap: 0.2rem;
+  color: var(--c-text-muted);
+}
+
+.location__facts strong {
+  color: var(--c-text);
+  font-weight: 500;
+}
+
+.location__hours strong {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 500;
+  margin-right: 0.35rem;
+}
+
+.location__directions {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: var(--space-3);
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+}
+
+.location__directions li {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.location__directions li::before {
+  content: '✦';
+  color: var(--c-gold);
+  font-size: 0.7em;
+  line-height: 2;
+}
+
+.location__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: var(--space-4);
+}
+
+.location__actions .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.location__features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: var(--space-4);
+}
+
+.location__features li {
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--c-line);
+  border-radius: 999px;
+  color: var(--c-text-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- The map: an arch-topped window onto the dark Yandex map ---------- */
+.location__map {
+  position: relative;
+  aspect-ratio: 4 / 4.4;
+  border-radius: 240px 240px var(--radius-photo) var(--radius-photo);
+  overflow: hidden;
+  background: var(--c-surface-deep);
+  box-shadow: var(--shadow-photo);
+  isolation: isolate;
+}
+
+.location__map::after {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  border: 1px solid color-mix(in oklab, var(--c-gold) 45%, transparent);
+  border-radius: 232px 232px calc(var(--radius-photo) - 6px) calc(var(--radius-photo) - 6px);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.location__map iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  pointer-events: none;
+  filter: saturate(0.85);
+  transition: filter var(--dur-ui) var(--ease-out);
+}
+
+.location__map.is-active iframe {
+  pointer-events: auto;
+  filter: none;
+}
+
+.location__unlock {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 2.25rem;
+  background:
+    radial-gradient(circle at var(--spot-x, 50%) var(--spot-y, 50%), transparent 0 30%, rgb(13 15 14 / 0.25) 70%),
+    linear-gradient(to top, rgb(13 15 14 / 0.75), transparent 35%);
+  cursor: pointer;
+}
+
+.location__unlock span {
+  padding: 0.55rem 1.1rem;
+  border: 1px solid var(--c-line-strong);
+  border-radius: 999px;
+  background: rgb(13 15 14 / 0.78);
+  color: var(--c-text);
+  font-size: var(--fs-small);
+  backdrop-filter: blur(6px);
+  transition: border-color var(--dur-ui) var(--ease-out), color var(--dur-ui) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .location__unlock:hover span {
+    border-color: var(--c-gold);
+    color: var(--c-gold);
+  }
+}
+
+.location__unlock:focus-visible {
+  outline: none;
+}
+
+.location__unlock:focus-visible span {
+  outline: 2px solid var(--c-gold);
+  outline-offset: 3px;
+}
+
+/* A small salon photo tucked over the corner of the map, like a postcard. */
+.location__photo {
+  position: absolute;
+  right: clamp(-2.5rem, -2.5vw, -1rem);
+  bottom: -3rem;
+  z-index: 3;
+  width: clamp(9rem, 15vw, 12.5rem);
+  aspect-ratio: 4 / 5;
+  rotate: 4deg;
+  border: 6px solid var(--c-surface);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-card);
+}
+
+.location__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Rating from the Yandex Maps card ---------- */
+.rating {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75rem 1.25rem;
+  align-items: center;
+  padding: var(--space-3);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-l);
+  background:
+    radial-gradient(240px circle at var(--spot-x, 20%) var(--spot-y, 20%), color-mix(in oklab, var(--c-gold) 10%, transparent), transparent 70%),
+    var(--c-surface);
+}
+
+.rating__score {
+  display: grid;
+  justify-items: center;
+  gap: 0.25rem;
+}
+
+.rating__value {
+  font-family: var(--font-display);
+  font-size: 3.4rem;
+  line-height: 1;
+  color: var(--c-gold);
+}
+
+.rating__stars {
+  display: flex;
+  gap: 1px;
+  color: var(--c-gold);
+}
+
+.rating__stars .icon {
+  fill: currentColor;
+  stroke-width: 0;
+}
+
+.rating__text {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.rating__text strong {
+  font-weight: 500;
+}
+
+.rating__text span {
+  color: var(--c-text-soft);
+  font-size: var(--fs-small);
+}
+
+.rating__award {
+  grid-column: 1 / -1;
+  justify-self: start;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--c-gold) 16%, transparent);
+  color: var(--c-gold);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
+
+.rating__links {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  font-size: var(--fs-small);
+}
+
+@media (max-width: 999px) {
+  .location__grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'info'
+      'media'
+      'rating';
+    gap: var(--space-5);
+  }
+
+  .location__map {
+    aspect-ratio: 4 / 4.6;
+    border-radius: 180px 180px var(--radius-photo) var(--radius-photo);
+  }
+
+  .location__map::after {
+    border-radius: 172px 172px calc(var(--radius-photo) - 6px) calc(var(--radius-photo) - 6px);
+  }
+
+  .location__photo {
+    right: -0.5rem;
+    bottom: -2rem;
+    width: 7.5rem;
+    rotate: 4deg;
+  }
+}
+
+@media (max-width: 520px) {
+  .location__facts > div {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  .location__actions .btn {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}
+
+/* On phones the postcard would cover the map's own controls: the map keeps the whole width. */
+@media (max-width: 600px) {
+  .location__photo { display: none; }
+  .location__unlock { padding-bottom: 1.5rem; }
+}

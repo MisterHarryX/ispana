@@ -1,0 +1,350 @@
+.process {
+  background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--c-surface) 55%, transparent) 20%, color-mix(in oklab, var(--c-surface) 55%, transparent) 80%, transparent);
+}
+
+.process__grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.process__main {
+  grid-column: 1 / span 6;
+}
+
+.process__figure {
+  grid-column: 8 / -1;
+  margin: 0;
+  position: sticky;
+  top: calc(var(--header-h) + var(--space-4));
+}
+
+.process__steps {
+  margin-top: var(--space-5);
+  border-top: 1px solid var(--c-line-soft);
+}
+
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3.2rem minmax(0, 1fr);
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-3) 0;
+  border: 0;
+  border-bottom: 1px solid var(--c-line-soft);
+  background: none;
+  text-align: left;
+  color: var(--c-text-soft);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color var(--dur-ui) ease;
+}
+
+.step__number {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-style: italic;
+  line-height: 1;
+  transition: color var(--dur-ui) ease;
+}
+
+.step__body {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.step__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  line-height: 1.2;
+}
+
+.step__text {
+  max-width: 30rem;
+  font-size: 0.97rem;
+}
+
+.step[aria-selected='true'] {
+  color: var(--c-ivory);
+}
+
+.step[aria-selected='true'] .step__number {
+  color: var(--c-gold);
+}
+
+.step[aria-selected='true'] .step__text {
+  color: var(--c-text-muted);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .step:hover {
+    color: var(--c-ivory);
+  }
+}
+
+.step:focus-visible {
+  outline-offset: -2px;
+}
+
+.step__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  overflow: hidden;
+}
+
+.step__progress span {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--c-rose), var(--c-gold));
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.step[aria-selected='true'] .step__progress span {
+  transform: scaleX(1);
+}
+
+.step[data-playing='true'] .step__progress span {
+  animation: progress linear both;
+}
+
+@keyframes progress {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+.process__toggle {
+  margin-top: var(--space-3);
+  min-height: 44px;
+  font-size: 0.92rem;
+}
+
+.process__stage {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--radius-photo);
+  background: var(--c-surface-deep);
+  box-shadow:
+    var(--shadow-photo),
+    0 0 120px -30px color-mix(in oklab, var(--c-amethyst) 55%, transparent);
+}
+
+@property --spread {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 120%;
+}
+
+.process__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+}
+
+.process__image[data-state='previous'] {
+  z-index: 1;
+  opacity: 1;
+}
+
+/* The next photo spreads out from wherever the candle is, with a soft burnt edge. */
+.process__image[data-state='active'] {
+  z-index: 2;
+  opacity: 1;
+  -webkit-mask-image: radial-gradient(circle farthest-corner at var(--from, 50% 44%), #000 calc(var(--spread) - 20%), transparent var(--spread));
+  mask-image: radial-gradient(circle farthest-corner at var(--from, 50% 44%), #000 calc(var(--spread) - 20%), transparent var(--spread));
+  animation: light-spread 1300ms var(--ease-in-out) both;
+}
+
+@keyframes light-spread {
+  from {
+    --spread: 0%;
+    scale: 1.06;
+  }
+  to {
+    --spread: 120%;
+    scale: 1;
+  }
+}
+
+/* ---------- Candlelight (useCandlelight) ---------- */
+
+/* A pool of warm light in near-total darkness; only its transform changes per frame. */
+.candle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  will-change: transform;
+  background: radial-gradient(
+    circle closest-side,
+    rgb(5 6 5 / 0) 0,
+    rgb(5 6 5 / 0.12) calc(var(--r, 240px) * 0.35),
+    rgb(5 6 5 / 0.55) calc(var(--r, 240px) * 0.7),
+    rgb(5 6 5 / 0.86) var(--r, 240px),
+    rgb(5 6 5 / 0.9) 100%
+  );
+}
+
+.candle__glow {
+  width: calc(var(--r, 240px) * 1.5);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(255 170 92 / 0.5), rgb(255 150 70 / 0.16) 45%, transparent);
+  mix-blend-mode: soft-light;
+  opacity: 0.82;
+}
+
+.candle__dust {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.candle__hint {
+  position: absolute;
+  left: 1.1rem;
+  bottom: 1.1rem;
+  z-index: 5;
+  display: none;
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-gold);
+  pointer-events: none;
+  transition: opacity 400ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .candle__hint {
+    display: block;
+  }
+}
+
+.process__stage[data-held] .candle__hint {
+  opacity: 0;
+}
+
+/* The footer title follows the photo in, through a soft blur. */
+.process__current {
+  animation: image-swap 420ms var(--ease-out);
+}
+
+/* The current step's numeral smoulders like an ember. */
+.step[aria-selected='true'] .step__number {
+  text-shadow: 0 0 14px color-mix(in oklab, var(--c-gold) 55%, transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .step[aria-selected='true'] .step__number {
+    animation: ember 3.4s ease-in-out infinite;
+  }
+}
+
+@keyframes ember {
+  50% {
+    text-shadow: 0 0 5px color-mix(in oklab, var(--c-gold) 25%, transparent);
+  }
+}
+
+.process__caption {
+  position: absolute;
+  left: var(--space-3);
+  bottom: var(--space-3);
+  z-index: 1;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--c-text-muted);
+  background: color-mix(in oklab, var(--c-bg) 70%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.process__caption span {
+  font-size: 1.3rem;
+  font-style: italic;
+  color: var(--c-gold);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .process__image[data-state='active'] {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .step[data-playing='true'] .step__progress span {
+    animation: none;
+  }
+}
+
+@media (max-width: 899px) {
+  .process__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .process__main,
+  .process__figure {
+    grid-column: 1 / -1;
+  }
+
+  /* Heading, then the photo pinned under the header, then the steps. */
+  .process__main {
+    display: contents;
+  }
+
+  .process__main > .section-heading {
+    order: 1;
+  }
+
+  .process__figure {
+    order: 2;
+    top: var(--header-h);
+    z-index: 2;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: var(--space-1) var(--gutter) var(--space-2);
+    background: var(--c-bg);
+  }
+
+  .process__steps {
+    order: 3;
+    margin-top: 0;
+  }
+
+  .process__toggle {
+    order: 4;
+    justify-self: start;
+  }
+
+  .process__stage {
+    aspect-ratio: 16 / 10;
+  }
+
+  .process__caption {
+    left: calc(var(--gutter) + var(--space-2));
+    bottom: calc(var(--space-2) + var(--space-2));
+  }
+
+  .step {
+    grid-template-columns: 2.4rem minmax(0, 1fr);
+  }
+
+  .step__number {
+    font-size: 1.7rem;
+  }
+}

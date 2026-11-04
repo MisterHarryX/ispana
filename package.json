@@ -1,0 +1,33 @@
+{
+  "name": "ispana",
+  "version": "1.0.0",
+  "description": "ISPANA: a light, tender website for a beauty salon in Vidnoe with online booking and an admin panel.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc",
+    "check:content": "node scripts/check-content.ts",
+    "build:regru": "node scripts/build-regru.mjs"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@fontsource/cormorant-garamond": "^5.3.0",
+    "@fontsource/ibm-plex-sans": "^5.3.0",
+    "@fontsource/jost": "^5.3.0",
+    "@vercel/blob": "^2.8.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4"
+  },
+  "private": true
+}

@@ -1,0 +1,329 @@
+/* ---------- FAQ: questions beside a card that answers (Faq.tsx) ---------- */
+
+.faq__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.faq__aside {
+  position: sticky;
+  top: calc(var(--header-h) + var(--space-4));
+}
+
+.faq__cta {
+  margin-top: var(--space-3);
+}
+
+/* The card on the table. */
+.faq__oracle {
+  position: relative;
+  display: grid;
+  justify-items: start;
+  margin-top: var(--space-5);
+  perspective: 1100px;
+}
+
+.faq__glow {
+  position: absolute;
+  left: -30%;
+  top: -25%;
+  width: 150%;
+  max-width: 420px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgb(255 170 92 / 0.13), rgb(190 162 121 / 0.05) 55%, transparent);
+}
+
+.faq__card {
+  position: relative;
+  width: clamp(140px, 13vw, 190px);
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 3px;
+  rotate: -4deg;
+  box-shadow: 0 26px 44px -22px #000, 0 0 0 1px rgb(255 255 255 / 0.04);
+  transition:
+    rotate 500ms var(--ease-out),
+    translate 500ms var(--ease-out);
+}
+
+.faq__card[data-face='true'] {
+  rotate: 0deg;
+  box-shadow:
+    0 30px 50px -22px #000,
+    0 0 0 1px color-mix(in oklab, var(--c-gold) 45%, transparent),
+    0 0 70px -14px color-mix(in oklab, var(--c-gold) 40%, transparent);
+}
+
+.faq__card .card-img {
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.faq__back {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: repeating-linear-gradient(45deg, transparent 0 5px, #bea27908 5px 6px), #1d2620;
+  box-shadow:
+    inset 0 0 0 4px #1d2620,
+    inset 0 0 0 5px #bea27999,
+    inset 0 0 0 8px #1d2620,
+    inset 0 0 0 9px #bea27933;
+}
+
+/* Hovering a question: the face-down card stirs, as if about to be turned. */
+.faq__oracle[data-peek='true'] .faq__card {
+  rotate: 2deg;
+  translate: 0 -8px;
+}
+
+.faq__caption {
+  margin-top: var(--space-3);
+  max-width: 16rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  line-height: 1.2;
+  color: var(--c-text-muted);
+}
+
+.faq__caption span {
+  margin-right: 0.35em;
+  font-family: var(--font-text);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  color: var(--c-gold);
+}
+
+/* ---------- Questions ---------- */
+
+.faq__list {
+  border-top: 1px solid var(--c-line);
+}
+
+.faq-item {
+  --spot-x: 50%;
+  --spot-y: 50%;
+  position: relative;
+  border-bottom: 1px solid var(--c-line-soft);
+  transition: background-color 400ms ease;
+}
+
+/* A soft pool of light follows the pointer across the row. */
+.faq-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(260px circle at var(--spot-x) var(--spot-y), rgb(190 162 121 / 0.07), transparent 70%);
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.faq-item[data-open='true'] {
+  background: linear-gradient(90deg, rgb(190 162 121 / 0.05), transparent 70%);
+}
+
+.faq-item__heading {
+  font: inherit;
+}
+
+.faq-item__question {
+  display: grid;
+  grid-template-columns: 2.6rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: 76px;
+  padding: var(--space-2) var(--space-1) var(--space-2) 0;
+  border: 0;
+  background: none;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.6rem);
+  line-height: 1.25;
+  text-align: left;
+  color: var(--c-ivory);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.faq-item__question:focus-visible {
+  outline-offset: -2px;
+}
+
+.faq-item__index {
+  font-family: var(--font-text);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--c-text-soft);
+  transition: color 300ms ease;
+}
+
+.faq-item__text {
+  transition:
+    translate 400ms var(--ease-out),
+    color 300ms ease;
+}
+
+/* Plus turns into a cross: one bar rotates a quarter, the pair a further eighth. */
+.faq-item__sign {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  color: var(--c-gold);
+  transition: rotate 450ms var(--ease-out);
+}
+
+.faq-item__sign::before,
+.faq-item__sign::after {
+  content: '';
+  position: absolute;
+  inset: 50% 0 auto;
+  height: 1.5px;
+  margin-top: -0.75px;
+  background: currentColor;
+}
+
+.faq-item__sign::after {
+  rotate: 90deg;
+}
+
+.faq-item[data-open='true'] .faq-item__sign {
+  rotate: 135deg;
+}
+
+.faq-item[data-open='true'] .faq-item__index,
+.faq-item[data-open='true'] .faq-item__text {
+  color: var(--c-gold);
+}
+
+/* Gold rule that draws along the bottom edge on hover and stays while open. */
+.faq-item__rule {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--c-gold), color-mix(in oklab, var(--c-gold) 20%, transparent));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 500ms var(--ease-out);
+  pointer-events: none;
+}
+
+.faq-item[data-open='true'] .faq-item__rule {
+  transform: scaleX(1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .faq-item:hover::before {
+    opacity: 1;
+  }
+
+  .faq-item:hover .faq-item__index {
+    color: var(--c-gold);
+  }
+
+  .faq-item:hover .faq-item__text {
+    translate: 6px 0;
+  }
+
+  .faq-item:hover .faq-item__rule {
+    transform: scaleX(1);
+  }
+}
+
+.faq-item__question:active .faq-item__text {
+  translate: 3px 0;
+  transition-duration: var(--dur-press);
+}
+
+/* Height animates through a 0fr → 1fr grid row, so it can reverse mid-way. */
+.faq-item__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 280ms var(--ease-out);
+}
+
+.faq-item[data-open='true'] .faq-item__panel {
+  grid-template-rows: 1fr;
+  transition-duration: 480ms;
+}
+
+.faq-item__inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* The answer settles in after the row has begun to open; it leaves at once. */
+.faq-item__answer {
+  max-width: 38rem;
+  padding: 0 var(--space-3) var(--space-3) calc(2.6rem + var(--space-2));
+  color: var(--c-text-muted);
+  opacity: 0;
+  filter: blur(3px);
+  translate: 0 -6px;
+  transition:
+    opacity 160ms ease-out,
+    filter 160ms ease-out,
+    translate 160ms ease-out;
+}
+
+.faq-item[data-open='true'] .faq-item__answer {
+  opacity: 1;
+  filter: none;
+  translate: 0 0;
+  transition-duration: 420ms;
+  transition-delay: 120ms;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Turning over: the new face swings in from edge-on. */
+  .faq__card {
+    animation: faq-turn 720ms var(--ease-out) both;
+  }
+
+  .faq__caption {
+    animation: image-swap 480ms var(--ease-out) 160ms both;
+  }
+
+  .faq__glow {
+    animation: flame-flicker 4.2s linear infinite;
+  }
+}
+
+@keyframes faq-turn {
+  from {
+    transform: rotateY(-95deg);
+    filter: brightness(0.35);
+  }
+}
+
+@media (max-width: 899px) {
+  .faq__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .faq__aside {
+    position: static;
+  }
+
+  /* On small screens the card would sit far from the list; the questions carry the section. */
+  .faq__oracle {
+    display: none;
+  }
+
+  .faq-item__question {
+    grid-template-columns: 2rem minmax(0, 1fr) auto;
+  }
+
+  .faq-item__answer {
+    padding-left: calc(2rem + var(--space-2));
+    padding-right: 0;
+  }
+}

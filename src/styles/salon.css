@@ -1,0 +1,269 @@
+/* Ваша территория: studio-specific parts on top of the Nocturne system (ink, brass, ivory). */
+
+/* Work photos keep their real colour: softer than the moody desaturation of the base theme. */
+.card-img { filter: saturate(.86) contrast(.98); }
+.photo--interactive img { filter: saturate(.78) brightness(.82); }
+@media (hover: hover) and (pointer: fine) {
+  .photo--interactive:hover img { filter: saturate(.92) brightness(.94); }
+}
+.hero__photo img { filter: saturate(.72) brightness(.7); }
+.process__image { filter: saturate(.8) brightness(.84); }
+.tarot__seal { color: #bea279bb; }
+
+/* ---------- Brand mark: round logo with a reading-progress ring ---------- */
+.brand-mark {
+  position: relative;
+  flex: none;
+  width: 36px;
+  height: 36px;
+}
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.brand-mark__ring {
+  position: absolute;
+  inset: -4px;
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
+  rotate: -90deg;
+  overflow: visible;
+}
+.brand-mark__ring circle {
+  fill: none;
+  stroke: var(--c-gold);
+  stroke-width: 1.2;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .brand-mark__ring circle {
+      animation: ring-fill linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+}
+@keyframes ring-fill {
+  to { stroke-dashoffset: 0; }
+}
+@media (max-width: 999px) {
+  .brand-mark { width: 30px; height: 30px; }
+}
+.brand--footer { display: inline-block; }
+.site-footer__address { margin-top: .75rem; }
+
+/* ---------- Topics: who does it ---------- */
+.topic-card__masters {
+  margin-top: auto;
+  font-size: .78rem;
+  letter-spacing: .04em;
+  color: var(--c-gold);
+}
+
+/* ---------- Team ---------- */
+.team { border-top: 1px solid var(--c-line-soft); }
+.team__heading { max-width: 40rem; margin-bottom: clamp(2.5rem, 2rem + 2vw, 4rem); }
+.team__grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(1rem, .5rem + 1.5vw, 2rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.master {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.master:nth-child(even) { margin-top: 2.5rem; }
+.master__media {
+  position: relative;
+  margin-bottom: 1.6rem;
+}
+.master__photo {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--c-line-soft);
+  border-radius: 48% 48% 3px 3px;
+  background: #171b18;
+  cursor: zoom-in;
+  box-shadow: var(--shadow-photo);
+}
+.master__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 20%;
+  filter: saturate(.78) brightness(.86);
+  transition: transform 900ms var(--ease-out), filter 600ms ease;
+}
+.master__work {
+  position: absolute;
+  z-index: 2;
+  right: -7%;
+  bottom: -7%;
+  width: 36%;
+  rotate: 7deg;
+  pointer-events: none;
+  transition: translate 400ms var(--ease-out), rotate 400ms var(--ease-out);
+}
+.master__work .card-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+  box-shadow: 0 12px 24px -10px #000;
+}
+@media (hover: hover) and (pointer: fine) {
+  .master:hover .master__photo img { transform: scale(1.04); filter: saturate(.92) brightness(.96); }
+  .master:hover .master__work { translate: 6% -10%; rotate: 2deg; }
+}
+.master__photo:focus-visible { outline: 2px solid var(--c-gold); outline-offset: 4px; }
+.master__name {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 400;
+  line-height: 1.05;
+}
+.master__role {
+  margin-top: .35rem;
+  font-size: .82rem;
+  line-height: 1.45;
+  color: var(--c-gold);
+}
+.master__services {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem;
+  margin: .9rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.master__services li {
+  padding: .25rem .55rem;
+  border: 1px solid var(--c-line-soft);
+  font-size: .72rem;
+  letter-spacing: .02em;
+  color: var(--c-text-muted);
+}
+.master__portfolio {
+  align-self: flex-start;
+  margin-top: .9rem;
+  font-size: .8rem;
+}
+.team__others {
+  margin-top: clamp(3rem, 2rem + 3vw, 4.5rem);
+  padding-top: 2rem;
+  border-top: 1px solid var(--c-line-soft);
+}
+.team__others-title {
+  margin-bottom: 1.25rem;
+  color: var(--c-gold);
+  text-transform: uppercase;
+  font-size: .7rem;
+  letter-spacing: .22em;
+}
+.team__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.team__list li {
+  display: flex;
+  gap: .9rem;
+  align-items: center;
+}
+.team__list strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 400;
+  line-height: 1.1;
+}
+.team__list-role {
+  display: block;
+  font-size: .8rem;
+  color: var(--c-text-muted);
+}
+.team__monogram {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid #bea27966;
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-style: italic;
+  color: var(--c-gold);
+}
+.team__note {
+  margin-top: 2.5rem;
+  font-size: .92rem;
+  color: var(--c-text-muted);
+}
+.team__note .text-link { margin-left: .35rem; }
+
+@media (max-width: 1099px) {
+  .team__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 3rem; }
+  .master:nth-child(even) { margin-top: 0; }
+  .team__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 679px) {
+  .team__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.25rem 1rem; }
+  .master__work { width: 34%; right: -4%; }
+  .master__services li { font-size: .68rem; }
+  .team__list { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------- Booking: address ---------- */
+.booking__address {
+  display: grid;
+  gap: .3rem;
+  margin-top: 1.5rem;
+  font-size: .92rem;
+}
+.booking__address-line {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1.15;
+}
+.booking__address-note {
+  color: var(--c-text-muted);
+  font-size: .85rem;
+}
+.booking__address .text-link { justify-self: start; margin-top: .35rem; }
+
+/* ---------- Engraving in the booking section ---------- */
+.polish-letter__dots circle { fill: #bea279aa; }
+.channel--phone .icon,
+.channel--booking .icon { color: var(--c-gold); }
+
+/* Six quotes in three columns: the middle column steps down. */
+.quote:nth-child(2) { margin-top: 0; }
+@media (min-width: 1000px) {
+  .quote:nth-child(3n + 2) { margin-top: var(--space-5); }
+}
+
+/* Seven sections and a two-word name: keep nav labels on one line, and between tablet and
+   wide desktop let the round logo stand in for the name so the menu never wraps. */
+.nav-link { white-space: nowrap; }
+.brand__name { flex: none; }
+@media (min-width: 1000px) and (max-width: 1299px) {
+  .site-header .brand__name { display: none; }
+  .site-nav ul { gap: 1.15rem; }
+}
