@@ -16,6 +16,7 @@ import { Team } from './components/sections/Team.tsx';
 import { Topics } from './components/sections/Topics.tsx';
 import { Works } from './components/sections/Works.tsx';
 import { ImageViewerProvider } from './components/ui/ImageViewer.tsx';
+import { PaletteSwitcher } from './components/ui/PaletteSwitcher.tsx';
 import { useScrollReveal } from './hooks/useScrollReveal.ts';
 import { useDelight } from './hooks/useDelight.ts';
 
@@ -59,6 +60,7 @@ export function App() {
           {sections.location && <Location />}
         </main>
         <Footer nav={nav} />
+        <PaletteSwitcher />
       </ImageViewerProvider>
     </BookingProvider>
   );

@@ -73,6 +73,25 @@ html:root[data-theme='dark'],
   --shadow-photo: 0 46px 90px -44px rgb(0 0 0 / 0.75);
 }
 
+
+/* Fixed tones used by sections and effects; every palette in palettes.css redefines them. */
+:root {
+  --ink-a: #3a2e29;
+  --ink-b: #2a211e;
+  --band-a: #8a6556;
+  --band-b: #b48e7f;
+  --score-a: #b48c7d;
+  --score-b: #87604f;
+  --tone-glow: #c49a8e;
+  --tone-soft: #e2bdb2;
+  --tone-deep: #a17a69;
+  --tone-warm: #e9c29f;
+  --shade: #3c2a22;
+  --shade-ink: #281c18;
+  --mark-a: #b99183;
+  --mark-b: #7d5a4c;
+}
+
 html:root[data-theme='dark'] {
   color-scheme: dark;
 }
@@ -286,7 +305,7 @@ body::after {
 .site-header.is-scrolled,
 .site-header.is-open {
   background: color-mix(in oklab, var(--c-bg) 90%, transparent);
-  box-shadow: 0 14px 30px -26px rgb(60 42 34 / 0.5);
+  box-shadow: 0 14px 30px -26px color-mix(in oklab, var(--shade) 50%, transparent);
 }
 
 .brand {
@@ -306,7 +325,7 @@ body::after {
   display: block;
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 4px 10px rgb(70 46 36 / 0.3));
+  filter: drop-shadow(0 4px 10px color-mix(in oklab, var(--shade) 30%, transparent));
   transition: transform 500ms var(--ease-out);
 }
 
@@ -871,7 +890,7 @@ body::after {
 .isp-marquee {
   overflow: hidden;
   padding-block: 1.1rem;
-  background: linear-gradient(90deg, #8a6556, #b48e7f 50%, #8a6556);
+  background: linear-gradient(90deg, var(--band-a), var(--band-b) 50%, var(--band-a));
 }
 
 .isp-marquee__track {
@@ -1304,7 +1323,7 @@ html[data-reveal] .isp-about__expect[data-revealed='true'] li {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 45%, rgb(40 28 24 / 0.55));
+  background: linear-gradient(180deg, transparent 45%, color-mix(in oklab, var(--shade-ink) 55%, transparent));
   pointer-events: none;
 }
 
@@ -1627,7 +1646,7 @@ html[data-reveal] .isp-about__expect[data-revealed='true'] li {
   padding: 0.7rem 1.1rem;
   border-radius: 16px;
   color: #fff;
-  background: rgb(40 28 24 / 0.45);
+  background: color-mix(in oklab, var(--shade-ink) 45%, transparent);
   backdrop-filter: blur(10px);
   pointer-events: none;
   animation: isp-soft-in 500ms var(--ease-out) both;
@@ -1660,7 +1679,7 @@ html[data-reveal] .isp-about__expect[data-revealed='true'] li {
   color: #fff;
   font-size: 0.82rem;
   font-variant-numeric: tabular-nums;
-  background: rgb(40 28 24 / 0.45);
+  background: color-mix(in oklab, var(--shade-ink) 45%, transparent);
   backdrop-filter: blur(10px);
 }
 
@@ -1863,7 +1882,7 @@ html[data-reveal] .isp-about__expect[data-revealed='true'] li {
   font-family: var(--font-display);
   font-size: 1.25rem;
   color: #fff;
-  background: rgb(40 28 24 / 0.4);
+  background: color-mix(in oklab, var(--shade-ink) 40%, transparent);
   backdrop-filter: blur(8px);
   opacity: 0;
   transform: translateY(10px);
@@ -1916,9 +1935,9 @@ html[data-reveal] .isp-about__expect[data-revealed='true'] li {
   position: relative;
   overflow: clip;
   background:
-    radial-gradient(48rem 34rem at 85% 10%, rgb(196 154 142 / 0.35), transparent 70%),
-    radial-gradient(40rem 30rem at 0% 100%, rgb(161 122 105 / 0.4), transparent 70%),
-    linear-gradient(180deg, #3a2e29, #2a211e);
+    radial-gradient(48rem 34rem at 85% 10%, color-mix(in oklab, var(--tone-glow) 35%, transparent), transparent 70%),
+    radial-gradient(40rem 30rem at 0% 100%, color-mix(in oklab, var(--tone-deep) 40%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--ink-a), var(--ink-b));
 }
 
 .isp-promos__orb {
@@ -1928,7 +1947,7 @@ html[data-reveal] .isp-about__expect[data-revealed='true'] li {
   left: 50%;
   top: 35%;
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgb(226 189 178 / 0.28), transparent);
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--tone-soft) 28%, transparent), transparent);
   translate: -50% 0;
   filter: blur(20px);
   pointer-events: none;
@@ -1976,7 +1995,7 @@ html[data-reveal] .isp-about__expect[data-revealed='true'] li {
   z-index: 2;
   padding: 1px;
   border-radius: inherit;
-  background: conic-gradient(from var(--angle), rgb(232 196 182 / 0.12), #e8c4b6 12%, rgb(233 194 159 / 0.85) 20%, rgb(232 196 182 / 0.12) 34%, rgb(232 196 182 / 0.12));
+  background: conic-gradient(from var(--angle), color-mix(in oklab, var(--tone-soft) 12%, transparent), var(--c-gold) 12%, color-mix(in oklab, var(--tone-warm) 85%, transparent) 20%, color-mix(in oklab, var(--tone-soft) 12%, transparent) 34%, color-mix(in oklab, var(--tone-soft) 12%, transparent));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -2012,7 +2031,7 @@ html[data-reveal] .isp-about__expect[data-revealed='true'] li {
   padding: 2.6rem 1.8rem 2rem;
   border-radius: inherit;
   text-align: center;
-  background: linear-gradient(180deg, rgb(169 128 111 / 0.32), rgb(255 240 232 / 0.04) 70%);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--tone-deep) 32%, transparent), rgb(255 240 232 / 0.04) 70%);
   box-shadow: var(--shadow-card);
 }
 
@@ -2053,7 +2072,7 @@ html[data-reveal] .isp-about__expect[data-revealed='true'] li {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 0 16px rgb(226 189 178 / 0.35));
+  filter: drop-shadow(0 0 16px color-mix(in oklab, var(--tone-soft) 35%, transparent));
 }
 
 .isp-promo__note {
@@ -3062,8 +3081,8 @@ html[data-reveal] .isp-about__expect[data-revealed='true'] li {
 .site-footer {
   border-top: 1px solid var(--c-line);
   background:
-    radial-gradient(48rem 30rem at 85% 0%, rgb(196 154 142 / 0.28), transparent 70%),
-    linear-gradient(180deg, #332823, #231b18);
+    radial-gradient(48rem 30rem at 85% 0%, color-mix(in oklab, var(--tone-glow) 28%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--ink-a), var(--ink-b));
 }
 
 .site-footer__mark-icon {
@@ -3085,7 +3104,7 @@ html[data-reveal] .isp-about__expect[data-revealed='true'] li {
   font-family: var(--font-logo);
   font-weight: 300;
   letter-spacing: 0.28em;
-  color: rgb(232 196 182 / 0.14);
+  color: color-mix(in oklab, var(--tone-soft) 14%, transparent);
   -webkit-text-stroke: 0;
   text-shadow: none;
 }
@@ -3107,17 +3126,17 @@ html[data-reveal] .isp-about__expect[data-revealed='true'] li {
 
 html[data-theme='dark'] .isp-hero {
   background:
-    radial-gradient(46rem 32rem at 88% 30%, rgb(196 154 142 / 0.3), transparent 70%),
-    radial-gradient(40rem 30rem at 0% 100%, rgb(161 122 105 / 0.3), transparent 70%),
-    linear-gradient(180deg, #332823, #2a211e);
+    radial-gradient(46rem 32rem at 88% 30%, color-mix(in oklab, var(--tone-glow) 30%, transparent), transparent 70%),
+    radial-gradient(40rem 30rem at 0% 100%, color-mix(in oklab, var(--tone-deep) 30%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--ink-a), var(--ink-b));
 }
 
 html[data-theme='dark'] .isp-promos {
   background:
-    radial-gradient(48rem 34rem at 85% 10%, rgb(196 154 142 / 0.28), transparent 70%),
-    linear-gradient(180deg, #43352f, #2f2521);
+    radial-gradient(48rem 34rem at 85% 10%, color-mix(in oklab, var(--tone-glow) 28%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--ink-a), var(--ink-b));
 }
 
 html[data-theme='dark'] .isp-show__card {
-  background: rgb(42 33 30 / 0.78);
+  background: color-mix(in oklab, var(--ink-b) 78%, transparent);
 }

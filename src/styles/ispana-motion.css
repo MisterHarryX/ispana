@@ -176,7 +176,7 @@
   border: 1px solid rgb(255 255 255 / 0.55);
   border-radius: 50%;
   color: #fff;
-  background: rgb(40 28 24 / 0.35);
+  background: color-mix(in oklab, var(--shade-ink) 35%, transparent);
   backdrop-filter: blur(8px);
   cursor: pointer;
   transition:
@@ -222,7 +222,7 @@
   text-align: center;
   background:
     radial-gradient(120% 80% at 50% 0%, color-mix(in oklab, var(--c-rose) 35%, transparent), transparent 70%),
-    #3a2e2a;
+    var(--ink-a);
 }
 
 html:not([data-theme='dark']) .isp-fan__back,
@@ -334,7 +334,7 @@ html:not([data-theme='dark']) .isp-room__back {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #fff;
-  background: rgb(40 28 24 / 0.45);
+  background: color-mix(in oklab, var(--shade-ink) 45%, transparent);
   backdrop-filter: blur(8px);
 }
 
@@ -591,13 +591,13 @@ html:not([data-theme='dark']) .isp-master .flip__face {
   border: 1px solid var(--c-line);
   background:
     radial-gradient(70% 60% at 50% 40%, color-mix(in oklab, var(--c-rose) 45%, transparent), transparent 70%),
-    linear-gradient(180deg, #3d312c, #2f2622);
+    linear-gradient(180deg, var(--ink-a), var(--ink-b));
 }
 
 html:not([data-theme='dark']) .isp-show__media--art {
   background:
     radial-gradient(70% 60% at 50% 40%, color-mix(in oklab, var(--c-rose) 55%, transparent), transparent 70%),
-    linear-gradient(180deg, #fffbf8, #f1e4dc);
+    linear-gradient(180deg, #fffbf8, var(--c-surface));
 }
 
 .isp-show__media--art::after {
@@ -812,7 +812,7 @@ html:not([data-theme='dark']) .isp-step__dot {
   height: 460px;
   margin: -230px 0 0 -230px;
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgb(226 189 178 / 0.38), transparent);
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--tone-soft) 38%, transparent), transparent);
   mix-blend-mode: soft-light;
   opacity: 0;
   pointer-events: none;
@@ -824,7 +824,7 @@ html:not([data-theme='dark']) .isp-step__dot {
 }
 
 html[data-theme='dark'] .isp-cursor {
-  background: radial-gradient(closest-side, rgb(226 189 178 / 0.2), transparent);
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--tone-soft) 20%, transparent), transparent);
   mix-blend-mode: screen;
 }
 

@@ -10,6 +10,13 @@
         try { t = localStorage.getItem('isp-theme'); } catch (e) {}
         if (t !== 'light' && t !== 'dark') t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         document.documentElement.dataset.theme = t;
+        var ids = ['powder', 'quartz', 'peach', 'milk'];
+        var q = new URLSearchParams(location.search);
+        var p = q.get('palette');
+        if (ids.indexOf(p) >= 0) { try { localStorage.setItem('isp-palette', p); } catch (e) {} }
+        else { try { p = localStorage.getItem('isp-palette'); } catch (e) {} }
+        document.documentElement.dataset.palette = ids.indexOf(p) >= 0 ? p : 'powder';
+        if (q.has('colors') || q.has('palette')) document.documentElement.dataset.paletteUi = 'on';
       })();
     </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

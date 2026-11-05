@@ -67,7 +67,7 @@
   font-size: 1.05rem;
   line-height: 1.15;
   color: #fff;
-  background: rgb(40 28 24 / 0.42);
+  background: color-mix(in oklab, var(--shade-ink) 42%, transparent);
   backdrop-filter: blur(8px);
 }
 
@@ -90,7 +90,7 @@
   text-align: center;
   background:
     radial-gradient(120% 80% at 50% 0%, color-mix(in oklab, var(--c-rose) 38%, transparent), transparent 70%),
-    #3a2e2a;
+    var(--ink-a);
 }
 
 html:not([data-theme='dark']) .isp-tile__back {
@@ -131,7 +131,7 @@ html:not([data-theme='dark']) .isp-tile__back {
   color: #fff;
   background:
     radial-gradient(90% 70% at 80% 10%, rgb(255 255 255 / 0.22), transparent 60%),
-    linear-gradient(140deg, #b48c7d, #87604f);
+    linear-gradient(140deg, var(--score-a), var(--score-b));
   box-shadow: var(--shadow-card);
 }
 

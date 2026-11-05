@@ -1,0 +1,301 @@
+/*
+ * ISPANA colour palettes (generated). <html data-palette="…"> picks one; each has a light set,
+ * a dark set (data-theme="dark", also used by .isp-ink sections and the footer) and fixed tones.
+ * Selectors outrank the site theme injected as :root:root.
+ */
+
+/* ---------- Пудра (powder) ---------- */
+
+html:root[data-palette='powder'] {
+  --c-bg: #FBF7F5;
+  --c-bg-2: #F6EDE9;
+  --c-surface: #F1E5E0;
+  --c-rose: #E6CFC8;
+  --c-gold: #A5655E;
+  --c-gold-2: #CE9C90;
+  --c-champagne: #D8AE9C;
+  --c-ivory: #352A2C;
+  --c-text: #352A2C;
+  --c-text-muted: #6B5759;
+  --c-text-soft: #977F81;
+  --c-on-gold: #fff;
+  --c-card: #FFFCFB;
+  --c-card-2: #FCF3F0;
+  --c-blush: #F5E4DF;
+  --c-cream: #F8EFEB;
+  --c-line: rgb(165 101 94 / 0.18);
+  --c-line-strong: rgb(165 101 94 / 0.36);
+  --c-line-soft: rgb(53 42 44 / 0.08);
+  --c-surface-deep: #F3E8E4;
+  --c-surface-raised: #FFFCFB;
+  --grad-accent: linear-gradient(100deg, #A5655E, #CE9C90 50%, #D8AE9C);
+  --glow: rgb(206 156 144 / 0.4);
+  --shadow-card: 0 30px 60px -40px rgb(92 58 60 / 0.38), 0 10px 22px -16px rgb(92 58 60 / 0.18);
+  --shadow-photo: 0 40px 80px -46px rgb(92 58 60 / 0.52);
+  --ink-a: #3D2D30;
+  --ink-b: #2A2023;
+  --band-a: #B97E76;
+  --band-b: #D9A89C;
+  --score-a: #CF968C;
+  --score-b: #A5655E;
+  --tone-glow: #CE9C90;
+  --tone-soft: #E6D0CA;
+  --tone-deep: #B07A72;
+  --tone-warm: #E8C2AE;
+  --shade: #4A2F33;
+  --shade-ink: #2A1E21;
+  --mark-a: #D3A49A;
+  --mark-b: #A5655E;
+}
+
+html:root[data-palette='powder'][data-theme='dark'],
+[data-palette='powder'] .isp-ink,
+[data-palette='powder'] .site-footer {
+  --c-bg: #261F21;
+  --c-bg-2: #2D2427;
+  --c-surface: #372C2F;
+  --c-rose: #B9877F;
+  --c-gold: #F0CBC3;
+  --c-gold-2: #E3B3A9;
+  --c-champagne: #EAC9B6;
+  --c-ivory: #F8EEEC;
+  --c-text: #F8EEEC;
+  --c-text-muted: #DFCBC8;
+  --c-text-soft: #B09A9A;
+  --c-on-gold: #261F21;
+  --c-card: rgb(248 238 236 / 0.05);
+  --c-card-2: rgb(248 238 236 / 0.085);
+  --c-blush: rgb(240 203 195 / 0.15);
+  --c-cream: rgb(248 238 236 / 0.07);
+  --c-line: rgb(240 203 195 / 0.18);
+  --c-line-strong: rgb(240 203 195 / 0.4);
+  --c-line-soft: rgb(248 238 236 / 0.08);
+  --c-surface-deep: rgb(0 0 0 / 0.16);
+  --c-surface-raised: rgb(248 238 236 / 0.07);
+  --grad-accent: linear-gradient(100deg, #F0CBC3, #F8EEEC 45%, #EAC9B6);
+  --glow: rgb(227 179 169 / 0.4);
+  --shadow-card: 0 30px 60px -34px rgb(0 0 0 / 0.6), 0 8px 20px -14px rgb(0 0 0 / 0.36);
+  --shadow-photo: 0 46px 90px -44px rgb(0 0 0 / 0.75);
+}
+
+/* ---------- Розовый кварц (quartz) ---------- */
+
+html:root[data-palette='quartz'] {
+  --c-bg: #FDF7F7;
+  --c-bg-2: #F9ECEC;
+  --c-surface: #F5E3E2;
+  --c-rose: #EDC6C3;
+  --c-gold: #AD5F66;
+  --c-gold-2: #D79C9C;
+  --c-champagne: #E9B9AA;
+  --c-ivory: #33272B;
+  --c-text: #33272B;
+  --c-text-muted: #6A5459;
+  --c-text-soft: #987E83;
+  --c-on-gold: #fff;
+  --c-card: #FFFCFC;
+  --c-card-2: #FDF1F1;
+  --c-blush: #F8E1E0;
+  --c-cream: #FAEEEE;
+  --c-line: rgb(173 95 102 / 0.18);
+  --c-line-strong: rgb(173 95 102 / 0.36);
+  --c-line-soft: rgb(51 39 43 / 0.08);
+  --c-surface-deep: #F6E6E6;
+  --c-surface-raised: #FFFCFC;
+  --grad-accent: linear-gradient(100deg, #AD5F66, #D79C9C 50%, #E9B9AA);
+  --glow: rgb(215 156 156 / 0.4);
+  --shadow-card: 0 30px 60px -40px rgb(94 54 64 / 0.38), 0 10px 22px -16px rgb(94 54 64 / 0.18);
+  --shadow-photo: 0 40px 80px -46px rgb(94 54 64 / 0.52);
+  --ink-a: #3E2A31;
+  --ink-b: #2A1D22;
+  --band-a: #C27A80;
+  --band-b: #E2A9A6;
+  --score-a: #D9969A;
+  --score-b: #AD5F66;
+  --tone-glow: #D79C9C;
+  --tone-soft: #EDC6C3;
+  --tone-deep: #B7737A;
+  --tone-warm: #EFC3B4;
+  --shade: #4D2C35;
+  --shade-ink: #2A1B20;
+  --mark-a: #DDA3A3;
+  --mark-b: #AD5F66;
+}
+
+html:root[data-palette='quartz'][data-theme='dark'],
+[data-palette='quartz'] .isp-ink,
+[data-palette='quartz'] .site-footer {
+  --c-bg: #251D21;
+  --c-bg-2: #2C2228;
+  --c-surface: #362A30;
+  --c-rose: #C0848A;
+  --c-gold: #F3C6C7;
+  --c-gold-2: #E7A9AC;
+  --c-champagne: #F0C7B8;
+  --c-ivory: #F9EEF0;
+  --c-text: #F9EEF0;
+  --c-text-muted: #E1CACD;
+  --c-text-soft: #B1999E;
+  --c-on-gold: #251D21;
+  --c-card: rgb(249 238 240 / 0.05);
+  --c-card-2: rgb(249 238 240 / 0.085);
+  --c-blush: rgb(243 198 199 / 0.15);
+  --c-cream: rgb(249 238 240 / 0.07);
+  --c-line: rgb(243 198 199 / 0.18);
+  --c-line-strong: rgb(243 198 199 / 0.4);
+  --c-line-soft: rgb(249 238 240 / 0.08);
+  --c-surface-deep: rgb(0 0 0 / 0.16);
+  --c-surface-raised: rgb(249 238 240 / 0.07);
+  --grad-accent: linear-gradient(100deg, #F3C6C7, #F9EEF0 45%, #F0C7B8);
+  --glow: rgb(231 169 172 / 0.4);
+  --shadow-card: 0 30px 60px -34px rgb(0 0 0 / 0.6), 0 8px 20px -14px rgb(0 0 0 / 0.36);
+  --shadow-photo: 0 46px 90px -44px rgb(0 0 0 / 0.75);
+}
+
+/* ---------- Нюд и персик (peach) ---------- */
+
+html:root[data-palette='peach'] {
+  --c-bg: #FDF8F4;
+  --c-bg-2: #F9EEE7;
+  --c-surface: #F5E6DC;
+  --c-rose: #EDCDC0;
+  --c-gold: #B0665A;
+  --c-gold-2: #DDA791;
+  --c-champagne: #E6C2A6;
+  --c-ivory: #35292A;
+  --c-text: #35292A;
+  --c-text-muted: #6B5654;
+  --c-text-soft: #988180;
+  --c-on-gold: #fff;
+  --c-card: #FFFCFA;
+  --c-card-2: #FDF3EE;
+  --c-blush: #F8E5DD;
+  --c-cream: #FAF0EA;
+  --c-line: rgb(176 102 90 / 0.18);
+  --c-line-strong: rgb(176 102 90 / 0.36);
+  --c-line-soft: rgb(53 41 42 / 0.08);
+  --c-surface-deep: #F6EAE3;
+  --c-surface-raised: #FFFCFA;
+  --grad-accent: linear-gradient(100deg, #B0665A, #DDA791 50%, #E6C2A6);
+  --glow: rgb(221 167 145 / 0.4);
+  --shadow-card: 0 30px 60px -40px rgb(94 61 56 / 0.38), 0 10px 22px -16px rgb(94 61 56 / 0.18);
+  --shadow-photo: 0 40px 80px -46px rgb(94 61 56 / 0.52);
+  --ink-a: #3B2F33;
+  --ink-b: #272024;
+  --band-a: #C88A77;
+  --band-b: #E8B9A4;
+  --score-a: #E0A48F;
+  --score-b: #B0665A;
+  --tone-glow: #DDA791;
+  --tone-soft: #EDCDC0;
+  --tone-deep: #BF8070;
+  --tone-warm: #EFCBAE;
+  --shade: #4A3335;
+  --shade-ink: #271E21;
+  --mark-a: #E2AE98;
+  --mark-b: #B0665A;
+}
+
+html:root[data-palette='peach'][data-theme='dark'],
+[data-palette='peach'] .isp-ink,
+[data-palette='peach'] .site-footer {
+  --c-bg: #262023;
+  --c-bg-2: #2D2529;
+  --c-surface: #372D31;
+  --c-rose: #C38E7E;
+  --c-gold: #F4CDBE;
+  --c-gold-2: #E9B39F;
+  --c-champagne: #EFCFB2;
+  --c-ivory: #F9EFEB;
+  --c-text: #F9EFEB;
+  --c-text-muted: #E2CDC6;
+  --c-text-soft: #B39C98;
+  --c-on-gold: #262023;
+  --c-card: rgb(249 239 235 / 0.05);
+  --c-card-2: rgb(249 239 235 / 0.085);
+  --c-blush: rgb(244 205 190 / 0.15);
+  --c-cream: rgb(249 239 235 / 0.07);
+  --c-line: rgb(244 205 190 / 0.18);
+  --c-line-strong: rgb(244 205 190 / 0.4);
+  --c-line-soft: rgb(249 239 235 / 0.08);
+  --c-surface-deep: rgb(0 0 0 / 0.16);
+  --c-surface-raised: rgb(249 239 235 / 0.07);
+  --grad-accent: linear-gradient(100deg, #F4CDBE, #F9EFEB 45%, #EFCFB2);
+  --glow: rgb(233 179 159 / 0.4);
+  --shadow-card: 0 30px 60px -34px rgb(0 0 0 / 0.6), 0 8px 20px -14px rgb(0 0 0 / 0.36);
+  --shadow-photo: 0 46px 90px -44px rgb(0 0 0 / 0.75);
+}
+
+/* ---------- Молочный (milk) ---------- */
+
+html:root[data-palette='milk'] {
+  --c-bg: #FCFAF9;
+  --c-bg-2: #F6F1EF;
+  --c-surface: #F1EBE8;
+  --c-rose: #EBD4CE;
+  --c-gold: #3B3537;
+  --c-gold-2: #CE9C90;
+  --c-champagne: #D8AE9C;
+  --c-ivory: #2A2627;
+  --c-text: #2A2627;
+  --c-text-muted: #625A5C;
+  --c-text-soft: #918789;
+  --c-on-gold: #fff;
+  --c-card: #FFFFFF;
+  --c-card-2: #FBF6F5;
+  --c-blush: #F5E6E2;
+  --c-cream: #F7F2F0;
+  --c-line: rgb(59 53 55 / 0.18);
+  --c-line-strong: rgb(59 53 55 / 0.36);
+  --c-line-soft: rgb(42 38 39 / 0.08);
+  --c-surface-deep: #F3EEEC;
+  --c-surface-raised: #FFFFFF;
+  --grad-accent: linear-gradient(100deg, #3B3537, #CE9C90 50%, #D8AE9C);
+  --glow: rgb(206 156 144 / 0.4);
+  --shadow-card: 0 30px 60px -40px rgb(46 40 41 / 0.38), 0 10px 22px -16px rgb(46 40 41 / 0.18);
+  --shadow-photo: 0 40px 80px -46px rgb(46 40 41 / 0.52);
+  --ink-a: #2F2B2C;
+  --ink-b: #1E1B1C;
+  --band-a: #3B3537;
+  --band-b: #5E5356;
+  --score-a: #E2B8AE;
+  --score-b: #C1877C;
+  --tone-glow: #CE9C90;
+  --tone-soft: #EBD4CE;
+  --tone-deep: #9C7A7D;
+  --tone-warm: #E8C9B4;
+  --shade: #2E2829;
+  --shade-ink: #1E1A1B;
+  --mark-a: #5A5154;
+  --mark-b: #262223;
+}
+
+html:root[data-palette='milk'][data-theme='dark'],
+[data-palette='milk'] .isp-ink,
+[data-palette='milk'] .site-footer {
+  --c-bg: #1E1C1D;
+  --c-bg-2: #242122;
+  --c-surface: #2D2A2B;
+  --c-rose: #B8908A;
+  --c-gold: #F0D2CB;
+  --c-gold-2: #E2B3A8;
+  --c-champagne: #E8CDB8;
+  --c-ivory: #F5F0EE;
+  --c-text: #F5F0EE;
+  --c-text-muted: #D6CDCB;
+  --c-text-soft: #A39A99;
+  --c-on-gold: #1E1C1D;
+  --c-card: rgb(245 240 238 / 0.05);
+  --c-card-2: rgb(245 240 238 / 0.085);
+  --c-blush: rgb(240 210 203 / 0.15);
+  --c-cream: rgb(245 240 238 / 0.07);
+  --c-line: rgb(240 210 203 / 0.18);
+  --c-line-strong: rgb(240 210 203 / 0.4);
+  --c-line-soft: rgb(245 240 238 / 0.08);
+  --c-surface-deep: rgb(0 0 0 / 0.16);
+  --c-surface-raised: rgb(245 240 238 / 0.07);
+  --grad-accent: linear-gradient(100deg, #F0D2CB, #F5F0EE 45%, #E8CDB8);
+  --glow: rgb(226 179 168 / 0.4);
+  --shadow-card: 0 30px 60px -34px rgb(0 0 0 / 0.6), 0 8px 20px -14px rgb(0 0 0 / 0.36);
+  --shadow-photo: 0 46px 90px -44px rgb(0 0 0 / 0.75);
+}

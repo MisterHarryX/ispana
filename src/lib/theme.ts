@@ -19,7 +19,10 @@ export function applyTheme(mode: ThemeMode, remember = true) {
   // A short class lets colours cross-fade instead of snapping.
   root.classList.add('theme-switching');
   root.dataset.theme = mode;
-  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', BAR[mode]);
+  requestAnimationFrame(() => {
+    const bg = getComputedStyle(root).getPropertyValue('--c-bg').trim() || BAR[mode];
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', bg);
+  });
   if (remember) {
     try {
       localStorage.setItem(KEY, mode);

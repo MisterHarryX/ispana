@@ -9,8 +9,8 @@ export function IspanaMark({ className = '' }: { className?: string }) {
     <svg className={className} viewBox="0 0 64 64" focusable="false" aria-hidden="true">
       <defs>
         <linearGradient id="isp-mark-g" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#B99183" />
-          <stop offset="1" stopColor="#7D5A4C" />
+          <stop offset="0" style={{ stopColor: 'var(--mark-a)' }} />
+          <stop offset="1" style={{ stopColor: 'var(--mark-b)' }} />
         </linearGradient>
       </defs>
       <circle cx="32" cy="32" r="32" fill="url(#isp-mark-g)" />
