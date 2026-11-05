@@ -5,3 +5,4 @@ dist
 regru
 .env*
 !.env.example
+*.tsbuildinfo
