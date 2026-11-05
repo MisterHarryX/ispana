@@ -282,6 +282,7 @@ export interface SiteConfig {
     about: boolean;
     topics: boolean;
     team: boolean;
+    academy: boolean;
     services: boolean;
     promos: boolean;
     works: boolean;
@@ -294,6 +295,16 @@ export interface SiteConfig {
   hero: HeroContent;
   topics: SectionCopy & { items: Topic[]; closingNote?: string };
   team: SectionCopy & { items: Master[]; note?: string };
+  /** «Обучаем мастеров»: courses the salon's masters give. */
+  academy: SectionCopy & {
+    eyebrow: string;
+    points: { lead: string; text: string }[];
+    directions: { id: string; drawing: string; title: string; text: string }[];
+    /** Words that run round the turning badge. */
+    badge: string;
+    action: string;
+    note?: string;
+  };
   /** Moving band of procedure names. */
   marquee: { words: string[] };
   services: SectionCopy & { items: Service[]; note?: string };

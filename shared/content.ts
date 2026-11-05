@@ -38,6 +38,7 @@ export const TEXT_ROOTS = [
   'practitioner',
   'topics',
   'team',
+  'academy',
   'marquee',
   'services',
   'promos',

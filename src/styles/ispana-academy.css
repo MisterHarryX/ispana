@@ -1,0 +1,273 @@
+/* ISPANA — «Обучаем мастеров»: text with points on one side, four drawn directions on the other. */
+
+.isp-academy {
+  overflow-x: clip;
+  background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--c-blush) 55%, transparent) 50%, transparent);
+}
+
+.isp-academy__orb {
+  position: absolute;
+  right: -8rem;
+  top: 10%;
+  width: 26rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in oklab, var(--c-rose) 55%, transparent), transparent 70%);
+  filter: blur(10px);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.isp-academy__grid {
+  position: relative;
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .isp-academy__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  }
+}
+
+.isp-academy__text .section-lead {
+  max-width: 34rem;
+}
+
+/* ---------- points ---------- */
+
+.isp-academy__points {
+  display: grid;
+  gap: 0.85rem;
+  margin: 1.8rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.isp-academy__points li {
+  position: relative;
+  padding-left: 2rem;
+  color: var(--c-text-muted);
+  line-height: 1.55;
+}
+
+.isp-academy__points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.2em;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 50%;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.4 6.8 11 12 5.4' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+      center / 72% no-repeat,
+    var(--c-gold);
+}
+
+[data-theme='dark'] .isp-academy__points li::before {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.4 6.8 11 12 5.4' fill='none' stroke='%23261F21' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+      center / 72% no-repeat,
+    var(--c-gold);
+}
+
+.isp-academy__points strong {
+  color: var(--c-text);
+  font-weight: 500;
+}
+
+.isp-academy__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.isp-academy__actions .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.isp-academy__note {
+  margin: 1rem 0 0;
+  font-size: var(--fs-small);
+  color: var(--c-text-soft);
+}
+
+/* ---------- directions ---------- */
+
+.isp-academy__board {
+  position: relative;
+  padding-top: 2.2rem;
+}
+
+.isp-academy__tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.isp-academy__tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1.1rem 1.25rem;
+  border: 1px solid var(--c-line);
+  border-radius: 26px;
+  background: var(--c-card);
+  box-shadow: var(--shadow-card);
+  transition:
+    transform 500ms var(--ease-out),
+    box-shadow 500ms var(--ease-out),
+    border-color 500ms ease;
+}
+
+/* A gentle stagger, like a pinned board. */
+.isp-academy__tile:nth-child(2) {
+  margin-top: 1.6rem;
+  margin-bottom: -1.6rem;
+}
+
+.isp-academy__tile:nth-child(4) {
+  margin-top: 1.6rem;
+  margin-bottom: -1.6rem;
+}
+
+.isp-academy__art {
+  width: 100%;
+  max-width: 11rem;
+  height: auto;
+  margin: 0 auto 0.4rem;
+  color: var(--c-gold);
+}
+
+.isp-academy__art .blob {
+  transition: transform 700ms var(--ease-out);
+  transform-origin: 50% 50%;
+  transform-box: fill-box;
+}
+
+.isp-academy__tile h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+  font-weight: 500;
+  line-height: 1.15;
+  color: var(--c-text);
+}
+
+.isp-academy__tile p {
+  margin: 0.35rem 0 0;
+  font-size: var(--fs-small);
+  line-height: 1.45;
+  color: var(--c-text-muted);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .isp-academy__tiles:hover > .isp-academy__tile:not(:hover) {
+    opacity: 0.8;
+  }
+
+  .isp-academy__tile:hover {
+    transform: translateY(-6px) rotate(-0.6deg);
+    border-color: var(--c-line-strong);
+  }
+
+  .isp-academy__tile:hover .isp-academy__art .blob {
+    transform: scale(1.12);
+  }
+}
+
+/* ---------- turning badge ---------- */
+
+.isp-academy__badge {
+  position: absolute;
+  z-index: 2;
+  top: -0.4rem;
+  right: -0.4rem;
+  display: grid;
+  place-items: center;
+  width: 7.2rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--c-bg);
+  box-shadow: var(--shadow-card);
+  color: var(--c-gold);
+}
+
+.isp-academy__badge svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.isp-academy__badge text {
+  fill: currentColor;
+  font-family: var(--font-logo);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.isp-academy__badge b {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--c-text);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .isp-academy__badge svg {
+    animation: isp-academy-turn 26s linear infinite;
+  }
+}
+
+@keyframes isp-academy-turn {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 959px) {
+  .isp-academy__board {
+    padding-top: 0;
+  }
+
+  .isp-academy__badge {
+    top: -3.2rem;
+    right: 0;
+    width: 6rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .isp-academy__tiles {
+    gap: 0.7rem;
+  }
+
+  .isp-academy__tile {
+    padding: 0.8rem 0.85rem 1rem;
+    border-radius: 20px;
+  }
+
+  .isp-academy__tile:nth-child(2),
+  .isp-academy__tile:nth-child(4) {
+    margin-top: 1rem;
+    margin-bottom: -1rem;
+  }
+
+  .isp-academy__actions .btn {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}

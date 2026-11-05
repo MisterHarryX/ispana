@@ -3,6 +3,7 @@ import { BookingProvider } from './lib/BookingContext.tsx';
 import { Footer } from './components/layout/Footer.tsx';
 import { Header, type NavItem } from './components/layout/Header.tsx';
 import { About } from './components/sections/About.tsx';
+import { Academy } from './components/sections/Academy.tsx';
 import { Booking } from './components/sections/Booking.tsx';
 import { Faq } from './components/sections/Faq.tsx';
 import { Hero } from './components/sections/Hero.tsx';
@@ -31,6 +32,7 @@ export function App() {
     sections.topics && { href: '#topics', label: 'Услуги' },
     sections.works && { href: '#works', label: 'Работы' },
     sections.team && { href: '#team', label: 'Команда' },
+    sections.academy && { href: '#academy', label: 'Обучение' },
     sections.services && { href: '#services', label: 'Цены' },
     showTestimonials && { href: '#testimonials', label: 'Отзывы' },
     sections.faq && { href: '#faq', label: 'Вопросы' },
@@ -52,6 +54,7 @@ export function App() {
           {sections.works && <Works />}
           {sections.promos && <Promos />}
           {sections.team && <Team />}
+          {sections.academy && <Academy />}
           {sections.services && <Services />}
           {sections.process && <Process />}
           {showTestimonials && <Testimonials />}
