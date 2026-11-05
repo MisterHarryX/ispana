@@ -30,6 +30,8 @@ import { MAX_BYTES, acceptedType, mediaBackend, readMedia, saveUpload } from './
 import { busyRanges, createRequest, deleteRequest, listRequests, updateRequest } from './requests.js';
 import { getLiveCount, getStats, isRangeId } from './stats.js';
 import { StorageUnavailableError, backend } from './store.js';
+import { getPalette, savePalette } from './palette.js';
+import { isPaletteId } from '../shared/palette.js';
 
 /**
  * All API routes in one place. `route` is the path after /api/ ("admin/requests/abc").
@@ -215,10 +217,10 @@ const routes: Route[] = [
     method: 'GET',
     pattern: /^content$/,
     handler: async () => {
-      const { texts, free, media, inserts, contacts, updatedAt } = await getOverrides();
+      const [{ texts, free, media, inserts, contacts, updatedAt }, palette] = await Promise.all([getOverrides(), getPalette()]);
       // Browsers always revalidate (an edit shows on the next visit); the CDN may hold it briefly.
       return json(
-        { texts, free, media, inserts, contacts, updatedAt },
+        { texts, free, media, inserts, contacts, updatedAt, palette },
         { headers: { 'Cache-Control': 'public, max-age=0, must-revalidate', 'CDN-Cache-Control': 'public, s-maxage=20, stale-while-revalidate=60' } },
       );
     },
@@ -357,6 +359,22 @@ const routes: Route[] = [
     pattern: /^admin\/content$/,
     admin: true,
     handler: async () => json(await getOverrides()),
+  },
+  {
+    method: 'GET',
+    pattern: /^admin\/palette$/,
+    admin: true,
+    handler: async () => json({ palette: await getPalette() }),
+  },
+  {
+    method: 'PUT',
+    pattern: /^admin\/palette$/,
+    admin: true,
+    handler: async (request) => {
+      const body = await readJsonBody<{ palette?: string }>(request, 1000);
+      if (!body || !isPaletteId(body.palette)) return error('bad-request', 400);
+      return json({ palette: await savePalette(body.palette) });
+    },
   },
   {
     method: 'PUT',

@@ -32,6 +32,7 @@ import { App } from './App.tsx';
 import { site } from './config/site.ts';
 import { getContent } from './lib/api.ts';
 import { applyOverrides } from './lib/overrides.ts';
+import { adoptSitePalette } from './lib/palette.ts';
 import { rememberPristine } from './lib/pristine.ts';
 import { startTracking } from './lib/tracker.ts';
 import { hasPageEdits, setPageEdits } from './lib/liveLayer.ts';
@@ -41,6 +42,8 @@ async function boot() {
   const content = await getContent(700);
   rememberPristine(site, content);
   if (content) applyOverrides(site, content);
+  // The palette chosen in the panel.
+  if (content?.palette) adoptSitePalette(content.palette);
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
       <App />

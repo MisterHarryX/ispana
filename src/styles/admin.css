@@ -2828,3 +2828,81 @@ button.a-cal__day {
 .a-waiting__list {
   overflow-x: hidden;
 }
+
+/* ---------- Site palette (Settings) ---------- */
+
+.a-palettes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
+  gap: 0.6rem;
+  margin: 0.9rem 0 0.8rem;
+}
+
+.a-palette {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  gap: 0.55rem 0.6rem;
+  padding: 0.7rem;
+  border: 1px solid var(--a-line);
+  border-radius: 14px;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  background: var(--a-surface-2);
+  cursor: pointer;
+  transition: border-color 200ms ease, transform 160ms ease, background-color 200ms ease;
+}
+
+.a-palette:active {
+  transform: scale(0.98);
+}
+
+.a-palette[aria-checked='true'] {
+  border-color: var(--a-line-strong);
+  background: var(--a-surface);
+  box-shadow: inset 0 0 0 1px var(--a-line-strong);
+}
+
+.a-palette[data-busy] {
+  opacity: 0.7;
+}
+
+.a-palette__strip {
+  grid-column: 1 / -1;
+  display: flex;
+  height: 36px;
+  border-radius: 9px;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.1);
+}
+
+.a-palette__strip i {
+  flex: 1;
+}
+
+.a-palette__name {
+  display: grid;
+  gap: 0.1rem;
+  font-size: 0.95rem;
+}
+
+.a-palette__name small {
+  font-size: 0.72rem;
+  opacity: 0.6;
+}
+
+.a-palette__mark {
+  align-self: center;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font-size: 0.85rem;
+}
+
+.a-palette[aria-checked='true'] .a-palette__mark {
+  color: var(--a-bg);
+  background: var(--c-gold);
+}

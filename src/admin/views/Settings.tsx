@@ -1,7 +1,82 @@
 import { useEffect, useState } from 'react';
+import { DEFAULT_PALETTE } from '../../../shared/palette.ts';
 import { DEFAULT_WORK_HOURS, type WorkHours } from '../../../shared/schedule.ts';
+import { PALETTES } from '../../lib/palette.ts';
+import { adminApi } from '../api.ts';
 import { AdminIcon } from '../icons.tsx';
 import { useAdmin } from '../store.tsx';
+
+/** Quick switch of the site colours: one tap publishes the palette for every visitor. */
+function PaletteSettings() {
+  const { toast } = useAdmin();
+  const [current, setCurrent] = useState<string>(DEFAULT_PALETTE);
+  const [saving, setSaving] = useState<string | null>(null);
+
+  useEffect(() => {
+    adminApi
+      .palette()
+      .then((r) => setCurrent(r.palette))
+      .catch(() => undefined);
+  }, []);
+
+  const choose = async (id: string) => {
+    if (id === current || saving) return;
+    setSaving(id);
+    try {
+      const r = await adminApi.savePalette(id);
+      setCurrent(r.palette);
+      toast(`Палитра «${PALETTES.find((p) => p.id === r.palette)?.title}» опубликована — посетители увидят её при следующем открытии сайта.`);
+    } catch (cause) {
+      toast(cause instanceof Error && cause.message === 'storage-unavailable' ? 'Хранилище не подключено — палитру сохранить негде.' : 'Не получилось сохранить палитру. Попробуйте ещё раз.', 'error');
+    } finally {
+      setSaving(null);
+    }
+  };
+
+  return (
+    <section className="a-panel">
+      <h3 className="a-block__title">Цвета сайта</h3>
+      <p className="a-meta">Выберите палитру — сайт перекрасится у всех посетителей. Светлая и тёмная тема есть в каждой.</p>
+      <div className="a-palettes" role="radiogroup" aria-label="Палитра сайта">
+        {PALETTES.map((p) => (
+          <button
+            key={p.id}
+            type="button"
+            role="radio"
+            aria-checked={p.id === current}
+            className="a-palette"
+            data-busy={saving === p.id || undefined}
+            onClick={() => choose(p.id)}
+          >
+            <span className="a-palette__strip" aria-hidden="true">
+              {p.swatch.map((c) => (
+                <i key={c} style={{ background: c }} />
+              ))}
+            </span>
+            <span className="a-palette__name">
+              {p.title}
+              {p.id === DEFAULT_PALETTE && <small>по умолчанию</small>}
+            </span>
+            <span className="a-palette__mark" aria-hidden="true">
+              {saving === p.id ? '…' : p.id === current ? '✓' : ''}
+            </span>
+          </button>
+        ))}
+      </div>
+      <p className="a-meta">
+        Посмотреть, не меняя сайт:{' '}
+        {PALETTES.map((p, i) => (
+          <span key={p.id}>
+            {i > 0 && ' · '}
+            <a href={`/?palette=${p.id}`} target="_blank" rel="noopener noreferrer">
+              {p.title}
+            </a>
+          </span>
+        ))}
+      </p>
+    </section>
+  );
+}
 
 const WEEKDAYS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 
@@ -48,6 +123,7 @@ export function Settings({ onLogout }: { onLogout: () => void }) {
 
   return (
     <div className="a-settings">
+      <PaletteSettings />
       <section className="a-panel">
         <h3 className="a-block__title">Рабочие часы</h3>
         <p className="a-meta">По ним сайт предлагает время записи. Занятые встречи из расписания скрываются автоматически. Время — {status.tz.replace('Europe/', '').replace('_', ' ')}.</p>

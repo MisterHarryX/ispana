@@ -31,7 +31,10 @@ export async function getAvailability(): Promise<Availability | null> {
   }
 }
 
-export type PublicContent = Pick<ContentOverrides, 'texts' | 'free' | 'media' | 'inserts' | 'contacts' | 'updatedAt'>;
+export type PublicContent = Pick<ContentOverrides, 'texts' | 'free' | 'media' | 'inserts' | 'contacts' | 'updatedAt'> & {
+  /** The site palette chosen in the panel. */
+  palette?: string;
+};
 
 export async function getContent(timeoutMs: number): Promise<PublicContent | null> {
   const controller = new AbortController();

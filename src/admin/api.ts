@@ -50,6 +50,8 @@ export const adminApi = {
   logins: () => call<{ items: LoginEntry[] }>('admin/logins'),
   content: () => call<ContentOverrides>('admin/content'),
   saveContent: (data: ContentOverrides) => call<ContentOverrides>('admin/content', { method: 'PUT', body: JSON.stringify(data) }),
+  palette: () => call<{ palette: string }>('admin/palette'),
+  savePalette: (palette: string) => call<{ palette: string }>('admin/palette', { method: 'PUT', body: JSON.stringify({ palette }) }),
 };
 
 export const ERROR_TEXT: Record<string, string> = {
