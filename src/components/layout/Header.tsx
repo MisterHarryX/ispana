@@ -9,13 +9,13 @@ export function IspanaMark({ className = '' }: { className?: string }) {
     <svg className={className} viewBox="0 0 64 64" focusable="false" aria-hidden="true">
       <defs>
         <linearGradient id="isp-mark-g" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#C06D7A" />
-          <stop offset="1" stopColor="#6A2B39" />
+          <stop offset="0" stopColor="#B99183" />
+          <stop offset="1" stopColor="#7D5A4C" />
         </linearGradient>
       </defs>
       <circle cx="32" cy="32" r="32" fill="url(#isp-mark-g)" />
-      <circle cx="32" cy="32" r="27.5" fill="none" stroke="#F8DEDB" strokeOpacity=".55" strokeWidth="1" />
-      <path d="M28.96 48.31V16.89H23.4V15.6H40.6V16.89H34.99V48.31H40.6V49.6H23.4V48.31Z" fill="#FFF5F3" />
+      <circle cx="32" cy="32" r="27.5" fill="none" stroke="#F6E4DC" strokeOpacity=".55" strokeWidth="1" />
+      <path d="M28.96 48.31V16.89H23.4V15.6H40.6V16.89H34.99V48.31H40.6V49.6H23.4V48.31Z" fill="#FFF8F4" />
     </svg>
   );
 }

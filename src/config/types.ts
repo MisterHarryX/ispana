@@ -187,7 +187,9 @@ export interface WorkPhoto {
 
 /** A photo card that turns over to a short fact. */
 export interface FlipCard {
-  src: string;
+  /** Photo on the front; leave out and set `frontDrawing` for a drawn front. */
+  src?: string;
+  frontDrawing?: string;
   alt: string;
   focus?: string;
   title: string;

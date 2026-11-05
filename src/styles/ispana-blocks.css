@@ -67,7 +67,7 @@
   font-size: 1.05rem;
   line-height: 1.15;
   color: #fff;
-  background: rgb(30 14 18 / 0.42);
+  background: rgb(40 28 24 / 0.42);
   backdrop-filter: blur(8px);
 }
 
@@ -90,13 +90,13 @@
   text-align: center;
   background:
     radial-gradient(120% 80% at 50% 0%, color-mix(in oklab, var(--c-rose) 38%, transparent), transparent 70%),
-    #3a2228;
+    #3a2e2a;
 }
 
 html:not([data-theme='dark']) .isp-tile__back {
   background:
     radial-gradient(120% 80% at 50% 0%, color-mix(in oklab, var(--c-rose) 42%, transparent), transparent 70%),
-    #fff9f7;
+    #fffaf6;
 }
 
 .isp-tile__back .isp-art {
@@ -131,7 +131,7 @@ html:not([data-theme='dark']) .isp-tile__back {
   color: #fff;
   background:
     radial-gradient(90% 70% at 80% 10%, rgb(255 255 255 / 0.22), transparent 60%),
-    linear-gradient(140deg, #b25f6d, #7a3343);
+    linear-gradient(140deg, #b48c7d, #87604f);
   box-shadow: var(--shadow-card);
 }
 
@@ -468,4 +468,66 @@ html:not([data-theme='dark']) .isp-tile__back {
   .isp-price__panel > div {
     padding: 0 0.4rem;
   }
+}
+
+/* ---------- Portfolio with 20 works: 4 x 5 on desktop, 5 x 4 on tablets, 4 x 5 on phones ---------- */
+
+@media (min-width: 900px) {
+  .isp-folio__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: repeat(5, minmax(0, 1fr));
+    gap: 0.55rem;
+  }
+
+  .isp-folio__thumb {
+    border-radius: 12px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 899px) {
+  .isp-folio__grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+/* ---------- The drawn tile (kids corner) ---------- */
+
+.isp-tile--art .flip__front {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(80% 70% at 50% 40%, color-mix(in oklab, var(--c-rose) 45%, transparent), transparent 75%),
+    var(--c-card-2);
+}
+
+.isp-tile__art {
+  display: block;
+  width: 86%;
+  margin-top: -14%;
+}
+
+.isp-tile__art .isp-art .d {
+  stroke-width: 1.8;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .isp-tile--art:hover .isp-tile__art {
+    transform: scale(1.04) rotate(-1deg);
+  }
+}
+
+.isp-tile__art {
+  transition: transform 700ms var(--ease-out);
+}
+
+.isp-tile--art .isp-tile__label {
+  color: var(--c-ivory);
+  background: color-mix(in oklab, var(--c-card) 80%, transparent);
+  border: 1px solid var(--c-line);
+}
+
+.isp-tile--art .flip__turn {
+  color: var(--c-gold);
+  border-color: var(--c-line-strong);
+  background: var(--c-cream);
 }

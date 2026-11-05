@@ -33,15 +33,21 @@ function Tiles() {
       >
         {cards.map((card, i) => (
           <FlipCard
-            key={card.src}
-            className="isp-tile"
+            key={card.title}
+            className={`isp-tile${card.frontDrawing ? ' isp-tile--art' : ''}`}
             style={{ '--i': i } as CSSProperties}
             label={card.title}
             flipped={isFlipped(i)}
             onFlip={(v) => set(i, v)}
             front={
               <>
-                <img src={card.src} alt={card.alt} loading="lazy" decoding="async" style={{ objectPosition: card.focus ?? '50% 50%' }} />
+                {card.frontDrawing ? (
+                  <span className="isp-tile__art">
+                    <Drawing id={card.frontDrawing as DrawingId} label={card.alt} />
+                  </span>
+                ) : (
+                  <img src={card.src} alt={card.alt} loading="lazy" decoding="async" style={{ objectPosition: card.focus ?? '50% 50%' }} />
+                )}
                 <span className="isp-tile__label">
                   <small>{String(i + 1).padStart(2, '0')}</small>
                   {card.title}

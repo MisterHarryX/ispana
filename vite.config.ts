@@ -9,7 +9,7 @@ const escapeHtml = (value: string) =>
   value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 /** Bump when public/og.png changes: messengers cache link previews by the image URL. */
-const OG_VERSION = '7';
+const OG_VERSION = '8';
 
 const PRELOAD_FONTS = [/cormorant-garamond-cyrillic-400-normal-[\w-]+\.woff2$/, /ibm-plex-sans-cyrillic-400-normal-[\w-]+\.woff2$/];
 
@@ -29,7 +29,7 @@ function siteHead(): Plugin {
         ...preloads,
         `<title>${escapeHtml(meta.title)}</title>`,
         `<meta name="description" content="${escapeHtml(meta.description)}" />`,
-        `<meta name="theme-color" content="#FBF3F0" />`,
+        `<meta name="theme-color" content="#FAF4EF" />`,
         `<meta property="og:type" content="website" />`,
         `<meta property="og:locale" content="ru_RU" />`,
         `<meta property="og:site_name" content="${escapeHtml(meta.brand)}" />`,

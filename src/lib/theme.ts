@@ -3,7 +3,7 @@ import { useCallback, useSyncExternalStore } from 'react';
 export type ThemeMode = 'light' | 'dark';
 
 const KEY = 'isp-theme';
-const BAR = { light: '#FBF3F0', dark: '#2A191D' } as const;
+const BAR = { light: '#FAF4EF', dark: '#2A211E' } as const;
 
 const read = (): ThemeMode => (document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
 

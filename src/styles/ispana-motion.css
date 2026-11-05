@@ -176,7 +176,7 @@
   border: 1px solid rgb(255 255 255 / 0.55);
   border-radius: 50%;
   color: #fff;
-  background: rgb(30 14 18 / 0.35);
+  background: rgb(40 28 24 / 0.35);
   backdrop-filter: blur(8px);
   cursor: pointer;
   transition:
@@ -222,14 +222,14 @@
   text-align: center;
   background:
     radial-gradient(120% 80% at 50% 0%, color-mix(in oklab, var(--c-rose) 35%, transparent), transparent 70%),
-    #3a2228;
+    #3a2e2a;
 }
 
 html:not([data-theme='dark']) .isp-fan__back,
 html:not([data-theme='dark']) .isp-room__back {
   background:
     radial-gradient(120% 80% at 50% 0%, color-mix(in oklab, var(--c-rose) 40%, transparent), transparent 70%),
-    #fff9f7;
+    #fffaf6;
 }
 
 .isp-fan__back .isp-art,
@@ -334,7 +334,7 @@ html:not([data-theme='dark']) .isp-room__back {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #fff;
-  background: rgb(30 14 18 / 0.45);
+  background: rgb(40 28 24 / 0.45);
   backdrop-filter: blur(8px);
 }
 
@@ -492,7 +492,7 @@ html:not([data-theme='dark']) .isp-room__back {
 }
 
 html:not([data-theme='dark']) .isp-master .flip__face {
-  background: #fffaf8;
+  background: #fffbf8;
 }
 
 .isp-master .flip__front {
@@ -591,13 +591,13 @@ html:not([data-theme='dark']) .isp-master .flip__face {
   border: 1px solid var(--c-line);
   background:
     radial-gradient(70% 60% at 50% 40%, color-mix(in oklab, var(--c-rose) 45%, transparent), transparent 70%),
-    linear-gradient(180deg, #3d252b, #2f1c21);
+    linear-gradient(180deg, #3d312c, #2f2622);
 }
 
 html:not([data-theme='dark']) .isp-show__media--art {
   background:
     radial-gradient(70% 60% at 50% 40%, color-mix(in oklab, var(--c-rose) 55%, transparent), transparent 70%),
-    linear-gradient(180deg, #fffaf8, #f6e2dd);
+    linear-gradient(180deg, #fffbf8, #f1e4dc);
 }
 
 .isp-show__media--art::after {
@@ -657,7 +657,7 @@ html:not([data-theme='dark']) .isp-show__media--art {
 }
 
 html:not([data-theme='dark']) .isp-step__dot {
-  background: #fffaf8;
+  background: #fffbf8;
 }
 
 .isp-step__dot svg.isp-step__art {
@@ -812,7 +812,7 @@ html:not([data-theme='dark']) .isp-step__dot {
   height: 460px;
   margin: -230px 0 0 -230px;
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgb(240 160 170 / 0.38), transparent);
+  background: radial-gradient(closest-side, rgb(226 189 178 / 0.38), transparent);
   mix-blend-mode: soft-light;
   opacity: 0;
   pointer-events: none;
@@ -824,7 +824,7 @@ html:not([data-theme='dark']) .isp-step__dot {
 }
 
 html[data-theme='dark'] .isp-cursor {
-  background: radial-gradient(closest-side, rgb(240 150 165 / 0.2), transparent);
+  background: radial-gradient(closest-side, rgb(226 189 178 / 0.2), transparent);
   mix-blend-mode: screen;
 }
 

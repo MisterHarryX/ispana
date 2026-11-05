@@ -22,7 +22,8 @@ export type DrawingId =
   | 'care'
   | 'chat'
   | 'storefront'
-  | 'armchair';
+  | 'armchair'
+  | 'kids';
 
 let k = 0;
 /** A stroke that draws itself; `n` orders it in the sequence. */
@@ -40,7 +41,7 @@ const Blob = ({ cx = 100, cy = 84, r = 62 }: { cx?: number; cy?: number; r?: num
   <ellipse className="blob" cx={cx} cy={cy} rx={r * 1.12} ry={r} />
 );
 
-const ART: Record<DrawingId, () => ReactNode> = {
+const ART: Partial<Record<DrawingId, () => ReactNode>> = {
   laser: () => (
     <>
       <Blob />
@@ -226,7 +227,7 @@ export function Drawing({ id, className = '', active, label }: { id: DrawingId; 
       aria-hidden={label ? undefined : true}
       focusable="false"
     >
-      {(DIRECTION_ART[id] ?? ART[id])()}
+      {(DIRECTION_ART[id] ?? ART[id] ?? (() => null))()}
     </svg>
   );
 }

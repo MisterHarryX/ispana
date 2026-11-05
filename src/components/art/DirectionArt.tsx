@@ -27,6 +27,36 @@ const Spark = ({ x, y, s = 1, n = 0 }: { x: number; y: number; s?: number; n?: n
 const Blob = () => <ellipse className="blob" cx={100} cy={84} rx={70} ry={62} />;
 
 export const DIRECTION_ART: Record<string, () => ReactNode> = {
+  /** The kids corner: a little table with books, a round-backed chair, blocks and a ball. */
+  kids: () => (
+    <>
+      <Blob />
+      {/* table: top, legs, shelf */}
+      <F d="M34 86h78v9H34Z" />
+      <D n={0} d="M34 86h78v9H34Z" />
+      <D n={1} d="M42 95l-5 42M104 95l5 42M44 116h58" />
+      {/* books on the table */}
+      <F d="M44 86V70h20v16Z" />
+      <D n={2} d="M44 86V70h20v16ZM48 74h12M48 79h8" w={1.3} />
+      <D n={3} d="M70 86l4-22 18 3-4 19" w={1.4} />
+      <D n={4} d="M94 86h16v-6H94Z" w={1.3} />
+      {/* chair with a round back */}
+      <D n={5} d="M124 104V84a16 16 0 0 1 32 0v20" />
+      <F d="M122 104h36v8h-36Z" />
+      <D n={6} d="M122 104h36v8h-36ZM127 112l-3 24M153 112l3 24" />
+      {/* blocks with letters */}
+      <F d="M14 124h16v16H14Z" />
+      <D n={7} d="M14 124h16v16H14ZM18 108h16v16H18Z" w={1.4} />
+      <D n={8} d="M19 136l3-8 3 8M21 133h2M23 113v6h5" w={1.1} />
+      {/* a striped ball */}
+      <D n={9} d="M178 120a12 12 0 1 0 .1 0ZM166 128c7 4 16 4 24 0M178 120c-5 8-5 16 0 24" w={1.4} />
+      {/* a balloon and a heart */}
+      <D n={10} d="M176 40c-9 0-14 8-12 16 2 7 8 12 12 14 4-2 10-7 12-14 2-8-3-16-12-16ZM176 70c-2 8 2 16-2 26" w={1.4} />
+      <D n={11} d="M140 52c-3-4-9-1-6 4l6 6 6-6c3-5-3-8-6-4Z" w={1.3} />
+      <Spark x={100} y={38} n={12} />
+      <Spark x={30} y={60} s={0.7} n={13} />
+    </>
+  ),
   laser: () => (
     <>
       <Blob />
